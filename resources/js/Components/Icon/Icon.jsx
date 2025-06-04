@@ -14,12 +14,17 @@ import {
   faTableCellsLarge,
   faLocationDot,
   faCircleXmark,
+  faGauge,
+  faBook,
+  faBagShopping,
+  faPuzzlePiece
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import Dashboard from "@/Pages/Admin/Dashboard";
 /**
  * Komponen Ikon Universal
  * @param {string} name - Nama ikon (contoh: "home", "user", "coffee")
@@ -46,6 +51,10 @@ const Icon = ({ name, className }) => {
     filter: faFilter,
     arrowLeft: faChevronLeft,
     arrowRight: faChevronRight,
+    dashboard : faGauge,
+    komik: faBook,
+    produk: faBagShopping,
+    kuis: faPuzzlePiece
 
   };
 

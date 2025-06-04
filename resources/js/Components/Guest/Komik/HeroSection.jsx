@@ -25,12 +25,12 @@ export default function HeroSection() {
                 style={{ y }}
             />
 
-            <div className="flex flex-col items-center justify-center relative z-10 px-4 md:px-12 py-16 text-black max-w-6xl w-full ">
+            <div className="flex flex-col items-center justify-center relative z-10 px-4 md:px-12 py-24 text-black max-w-6xl w-full ">
                 {/* Gambar karakter animasi naik-turun */}
                 <motion.img
                     src="/build/images/koleksi-gambi.png"
                     alt="gambi-hero.png"
-                    className="mt-20 relative z-10"
+                    className="mt-28 relative z-10"
                     initial={{ y: 0 }}
                     animate={{ y: [0, -20, 0] }}
                     transition={{
@@ -40,14 +40,6 @@ export default function HeroSection() {
                     }}
                 />
 
-                <motion.button
-                    className="bg-white text-lime-700 font-semibold px-6 py-3 rounded-full shadow-lg transition hover:scale-105 border border-lime-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => alert("Segera hadir: Temui Gambi! 🎉")}
-                >
-                    Koleksi Gambi! 🐸
-                </motion.button>
             </div>
         </section>
     );

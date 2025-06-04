@@ -1,7 +1,7 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
+import ApplicationLogo from "@/Components/Common/ApplicationLogo";
 import { Link } from "@inertiajs/react";
-import Navbar from "@/Layouts/Navbar";
-import Footer from "@/Layouts/Footer";
+import Navbar from "@/Components/Guest/Layouts/Navbar";
+import Footer from "@/Components/Guest/Layouts/Footer";
 
 export default function GuestLayout({ children }) {
     return (
@@ -12,14 +12,10 @@ export default function GuestLayout({ children }) {
                 <Footer />
             </div> */}
 
-            <div className=" min-h-screen flex">
-                <div className="flex flex-col flex-1">
-                    <Navbar />
-                    <div className="flex-1">
-                        {children}
-                    </div>
-                    <Footer />
-                </div>
+            <div className="min-h-screen flex flex-col">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
             </div>
         </>
     );

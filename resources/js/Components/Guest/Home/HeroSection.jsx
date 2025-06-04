@@ -31,7 +31,7 @@ export default function HeroSection() {
             /> */}
 
             <motion.img
-                src="/build/images/gambi-hero.png"
+                src="/build/images/home-hero.png"
                 alt="gambi-hero.png"
                 className="w-1/2 relative z-10"
                 initial={{ y: 0 }}
