@@ -10,58 +10,46 @@ use Inertia\Response;
 
 class KomikController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+     public function komikGuest()
     {
-        return Inertia::render('Komik/Index');
+        return Inertia::render('Guest/Komik/Index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function komikAdmin()
+    {
+        return Inertia::render('Admin/Komik/Index');
+    }
+
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Komik $komik)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Komik $komik)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Komik $komik)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Komik $komik)
+        public function destroy(Komik $komik)
     {
         //
     }

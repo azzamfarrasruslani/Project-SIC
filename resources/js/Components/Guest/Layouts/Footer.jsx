@@ -1,4 +1,4 @@
-import Icon from "../Components/Icon/Icon.jsx";
+import Icon from "../../Icon/Icon.jsx";
 
 const Footer = () => {
     return (
@@ -7,7 +7,7 @@ const Footer = () => {
                 {/* Logo dan Tentang Gambi */}
                 <div className="flex flex-col items-center md:items-start">
                     <img
-                        src="/build/images/logo/SIC Logo Vertical - Color.png"
+                        src="/build/images/logo/SIC Logo Vertical - White.png"
                         alt="Gambi Logo"
                         className="h-full w-20 mb-4"
                     />
@@ -111,8 +111,8 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="mt-10 border-t border-lime-700 pt-4 text-center text-sm text-lime-300">
-                © {new Date().getFullYear()} Peatland Hero. Semua Hak
-                Dilindungi 🌱
+                © {new Date().getFullYear()} GATY. Semua Hak Dilindungi
+                🌱
             </div>
         </footer>
     );

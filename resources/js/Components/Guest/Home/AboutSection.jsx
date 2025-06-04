@@ -1,10 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Link } from "@inertiajs/react";
-import { route } from "ziggy-js";
 
-// ...import tetap
-const AboutSection = React.forwardRef((props, ref) => {
+const AboutSection = React.forwardRef((props) => {
     const sectionRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -14,10 +11,7 @@ const AboutSection = React.forwardRef((props, ref) => {
     const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
 
     return (
-        <section
-            ref={ref}
-            className="min-h-screen bg-gradient-to-b from-lime-900 via-lime-800 to-lime-700 flex items-center justify-center relative overflow-hidden"
-        >
+        <section className="min-h-screen bg-gradient-to-b from-lime-900 via-lime-800 to-lime-700 flex items-center justify-center relative overflow-hidden">
             <motion.img
                 src="/build/images/forest.png"
                 className="absolute inset-0 w-full h-full object-cover"
@@ -165,8 +159,8 @@ const AboutSection = React.forwardRef((props, ref) => {
                     {/* Gambar */}
                     <div className="flex-shrink-0">
                         <img
-                            src="/build/images/tanah-gambut.jpg"
-                            alt="Tanah Gambut"
+                            src="/build/images/lahan-gambut.png"
+                            alt="Lahan Gambut"
                             className="w-80 h-80 md:w-96 md:h-96 rounded-xl object-cover border-4 border-white shadow-md"
                         />
                     </div>
