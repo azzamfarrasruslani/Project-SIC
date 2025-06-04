@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function Edit({ komik }) {
   const { data, setData, post, processing, errors } = useForm({
@@ -39,6 +40,8 @@ export default function Edit({ komik }) {
   };
 
   return (
+    <AuthenticatedLayout>
+
     <div className="max-w-xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Edit Komik</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,5 +102,7 @@ export default function Edit({ komik }) {
         </button>
       </form>
     </div>
+        </AuthenticatedLayout>
+
   );
 }

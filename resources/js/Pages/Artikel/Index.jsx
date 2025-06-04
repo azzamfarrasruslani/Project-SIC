@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, router } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function Index({ artikels }) {
   const handleDelete = (id_artikel) => {
@@ -9,6 +10,8 @@ export default function Index({ artikels }) {
   };
 
   return (
+    <AuthenticatedLayout>
+
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">Daftar Artikel</h1>
 
@@ -68,5 +71,7 @@ export default function Index({ artikels }) {
         </table>
       </div>
     </div>
+        </AuthenticatedLayout>
+
   );
 }

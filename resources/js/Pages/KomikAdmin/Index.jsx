@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, router } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function Index({ komik }) {
   const handleDelete = (id_komik) => {
@@ -9,12 +10,15 @@ export default function Index({ komik }) {
   };
 
   return (
+            <AuthenticatedLayout>
+
+            
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Daftar Komik (Admin)</h1>
       
       <div className="text-right mb-4">
         <Link
-          href="/komik-admin/create"
+        href={route(menu.routeName)}
           className="bg-green-500 text-white px-6 py-3 rounded-full shadow-md hover:bg-green-600 transition-all duration-300"
         >
           Tambah Komik
@@ -88,5 +92,6 @@ export default function Index({ komik }) {
         </table>
       </div>
     </div>
+    </AuthenticatedLayout>
   );
 }
