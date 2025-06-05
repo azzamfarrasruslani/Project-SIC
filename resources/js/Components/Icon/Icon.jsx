@@ -19,7 +19,9 @@ import {
   Puzzle,
   Facebook,
   Instagram,
-  Youtube
+  Youtube,
+ Newspaper
+
 } from "lucide-react";
 
 /**
@@ -50,7 +52,8 @@ const Icon = ({ name, className = "" }) => {
     dashboard: Gauge,
     komik: Book,
     produk: ShoppingBag,
-    kuis: Puzzle
+    kuis: Puzzle,
+    artikel: Newspaper
   };
 
   const LucideIcon = icons[name];

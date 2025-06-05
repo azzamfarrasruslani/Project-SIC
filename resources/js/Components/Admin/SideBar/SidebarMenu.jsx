@@ -29,9 +29,9 @@ export default function SidebarMenu() {
         {
             label: "Artikel",
             routeName: "artikel-admin.index",
-            icon: "kuis",
+            icon: "artikel",
         },
-        
+
     ];
 
     return (
