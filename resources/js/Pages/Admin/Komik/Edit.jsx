@@ -1,11 +1,18 @@
-// resources/js/Pages/Komik/Edit.jsx
-import React from "react";
-import { useForm } from "@inertiajs/react";
+import React, { useState } from "react";
+import axios from "axios";
+import { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { route } from "ziggy-js";
 
-export default function Edit({ komik }) {
-    const { data, setData, post, processing } = useForm({
+// Import komponen reusable
+import FormInput from "@/Components/Admin/Common/FormInput";
+import FormTextarea from "@/Components/Admin/Common/FormTextarea";
+import FormFile from "@/Components/Admin/Common/FormFile";
+
+export default function Edit() {
+    const { props } = usePage();
+    const komik = props.komik;
+
+    const [form, setForm] = useState({
         judul: komik.judul || "",
         deskripsi: komik.deskripsi || "",
         pengarang: komik.pengarang || "",
@@ -13,24 +20,58 @@ export default function Edit({ komik }) {
         gambar: null,
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
-        const formData = new FormData();
-        formData.append("judul", data.judul);
-        formData.append("deskripsi", data.deskripsi);
-        formData.append("pengarang", data.pengarang);
-        if (data.thumbnail) formData.append("thumbnail", data.thumbnail);
-        if (data.gambar) formData.append("gambar", data.gambar);
-        formData.append("_method", "POST"); // gunakan POST karena route pakai POST
-
-        post(route("komik.update", komik.id), formData, {
-            forceFormData: true,
-        });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
-    const handleFileChange = (e, field) => {
-        setData(field, e.target.files[0]);
+    const handleFileChange = (e, name) => {
+        setForm((prev) => ({
+            ...prev,
+            [name]: e.target.files[0],
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setErrors({});
+
+        const formData = new FormData();
+        formData.append("judul", form.judul);
+        formData.append("deskripsi", form.deskripsi);
+        formData.append("pengarang", form.pengarang);
+        if (form.thumbnail) formData.append("thumbnail", form.thumbnail);
+        if (form.gambar) formData.append("gambar", form.gambar);
+
+        try {
+            await axios.post(
+                `/admin/komik/${komik.id_komik}/update`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            // redirect ke halaman admin komik setelah sukses
+            window.location.href = "/komik";
+        } catch (error) {
+            if (error.response?.status === 422) {
+                setErrors(error.response.data.errors);
+            } else {
+                console.error("Gagal menyimpan data", error);
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -38,62 +79,67 @@ export default function Edit({ komik }) {
             <div className="p-6">
                 <h1 className="text-2xl font-bold mb-4">Edit Komik</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="text"
-                        value={data.judul}
-                        onChange={(e) => setData("judul", e.target.value)}
-                        placeholder="Judul"
-                        className="w-full p-2 border rounded"
+                    <FormInput
+                        label="Judul"
+                        name="judul"
+                        value={form.judul}
+                        onChange={handleChange}
+                        placeholder="Masukkan Judul"
+                        error={errors.judul}
                     />
-                    <textarea
-                        value={data.deskripsi}
-                        onChange={(e) => setData("deskripsi", e.target.value)}
-                        placeholder="Deskripsi"
-                        className="w-full p-2 border rounded"
+
+                    <FormTextarea
+                        label="Deskripsi"
+                        name="deskripsi"
+                        value={form.deskripsi}
+                        onChange={handleChange}
+                        placeholder="Masukkan Deskripsi"
+                        error={errors.deskripsi}
                     />
-                    <input
-                        type="text"
-                        value={data.pengarang}
-                        onChange={(e) => setData("pengarang", e.target.value)}
-                        placeholder="Pengarang"
-                        className="w-full p-2 border rounded"
+
+                    <FormInput
+                        label="Pengarang"
+                        name="pengarang"
+                        value={form.pengarang}
+                        onChange={handleChange}
+                        placeholder="Masukkan Nama Pengarang"
+                        error={errors.pengarang}
                     />
-                    <div>
-                        <label>Thumbnail Baru (Opsional):</label>
-                        <input
-                            type="file"
-                            onChange={(e) => handleFileChange(e, "thumbnail")}
-                            className="w-full p-2 border rounded"
+
+                    <FormFile
+                        label="Thumbnail Baru (Opsional)"
+                        name="thumbnail"
+                        onChange={(e) => handleFileChange(e, "thumbnail")}
+                        error={errors.thumbnail}
+                    />
+                    {komik.thumbnail && (
+                        <img
+                            src={`/storage/${komik.thumbnail}`}
+                            alt="Thumbnail lama"
+                            className="mt-2 w-32"
                         />
-                        {komik.thumbnail && (
-                            <img
-                                src={`/storage/${komik.thumbnail}`}
-                                alt="Thumbnail lama"
-                                className="mt-2 w-32"
-                            />
-                        )}
-                    </div>
-                    <div>
-                        <label>Gambar Baru (Opsional):</label>
-                        <input
-                            type="file"
-                            onChange={(e) => handleFileChange(e, "gambar")}
-                            className="w-full p-2 border rounded"
+                    )}
+
+                    <FormFile
+                        label="Gambar Baru (Opsional)"
+                        name="gambar"
+                        onChange={(e) => handleFileChange(e, "gambar")}
+                        error={errors.gambar}
+                    />
+                    {komik.gambar && (
+                        <img
+                            src={`/storage/${komik.gambar}`}
+                            alt="Gambar lama"
+                            className="mt-2 w-32"
                         />
-                        {komik.gambar && (
-                            <img
-                                src={`/storage/${komik.gambar}`}
-                                alt="Gambar lama"
-                                className="mt-2 w-32"
-                            />
-                        )}
-                    </div>
+                    )}
+
                     <button
                         type="submit"
-                        disabled={processing}
+                        disabled={loading}
                         className="bg-blue-600 text-white px-4 py-2 rounded"
                     >
-                        Simpan Perubahan
+                        {loading ? "Menyimpan..." : "Simpan Perubahan"}
                     </button>
                 </form>
             </div>
