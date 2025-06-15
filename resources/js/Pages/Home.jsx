@@ -6,8 +6,7 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import HeroSection from "@/Components/Guest/Home/HeroSection";
 import ScrollButtons from "@/Components/Guest/Home/ScrollButtons";
 import AboutSection from "@/Components/Guest/Home/AboutSection";
-import PeatFunctionsSection from "@/Components/Guest/Home/PeatFunctionsSection";
-import PeatJourneySection from "@/Components/Guest/Home/PeatJourneySection";
+
 const Home = () => {
     const bottomRef = useRef(null);
     const peatJourneyRef = useRef(null); // khusus untuk PeatJourneySection
@@ -29,10 +28,6 @@ const Home = () => {
 
                 <AboutSection />
 
-                <PeatFunctionsSection ref={bottomRef} />
-
-                {/* Gunakan ref yang berbeda */}
-                <PeatJourneySection ref={peatJourneyRef} />
             </div>
         </GuestLayout>
     );
