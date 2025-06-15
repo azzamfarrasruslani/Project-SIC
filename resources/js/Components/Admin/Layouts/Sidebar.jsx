@@ -65,10 +65,7 @@ function SidebarContent() {
         <>
             <div className="flex flex-col items-start space-y-1">
                 <span className="text-3xl font-extrabold tracking-tight">
-                    Peatland Hero
-                </span>
-                <span className="text-sm font-light text-lime-200">
-                    Admin Dashboard
+                  <img src="/build/images/logo/PeatlandHero-White.png" alt="" />
                 </span>
             </div>
 
