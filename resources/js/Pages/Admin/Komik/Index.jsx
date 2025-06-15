@@ -1,14 +1,14 @@
 import React from "react";
 import { Link, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import  {route}  from "ziggy-js";
+import { route } from "ziggy-js";
 
 export default function Index({ komik }) {
-   const handleDelete = (id) => {
-  if (confirm('Yakin ingin menghapus komik ini?')) {
-    router.delete(`/admin/komik/${id}`);
-  }
-};
+    const handleDelete = (id) => {
+        if (confirm("Yakin ingin menghapus komik ini?")) {
+            router.delete(`/admin/komik/${id}`);
+        }
+    };
 
     return (
         <AuthenticatedLayout>
@@ -92,11 +92,13 @@ export default function Index({ komik }) {
                                             </Link>
                                             {/* Menggunakan Form untuk Delete dengan metode DELETE */}
                                             <button
-  onClick={() => handleDelete(item.id_komik)}
-  className="text-red-500 hover:text-red-700 transition-colors"
->
-  Hapus
-</button>
+                                                onClick={() =>
+                                                    handleDelete(item.id_komik)
+                                                }
+                                                className="text-red-500 hover:text-red-700 transition-colors"
+                                            >
+                                                Hapus
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
