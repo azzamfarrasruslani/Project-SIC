@@ -13,7 +13,10 @@ class KomikController extends Controller
 
     public function komikGuest()
     {
-        return Inertia::render('Guest/Komik/Index');
+        $komik = Komik::all();
+        return Inertia::render('Guest/Komik/Index', [
+            'komik' => $komik,
+        ]);
     }
 
     public function komikAdmin()
