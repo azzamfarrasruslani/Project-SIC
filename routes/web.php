@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\KomikAdminController;
 
+
 // ===================
 //=== Auth routes ===
 // ===================
@@ -46,7 +47,6 @@ Route::get('/produk', [ProdukController::class, 'produkGuest'])->name('produk.gu
 // ===================
 //=== Admin routes ===
 // ===================
-
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -69,9 +69,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/kuis/{id}/edit', [KuisController::class, 'edit'])->name('kuis.edit');
     Route::put('/kuis/{id}', [KuisController::class, 'update'])->name('kuis.update');
     Route::delete('/kuis/{id}', [KuisController::class, 'destroy'])->name('kuis.destroy');
-
-    // Route tambahan untuk destroy dengan parameter `id_artikel`
-
 
     // Route::delete('/artikel-admin/{id_artikel}', [ArtikelController::class, 'destroy'])->name('artikel-admin.destroy');
     // Route::resource('/artikel-admin', ArtikelController::class);
