@@ -53,7 +53,7 @@ export default function Sidebar({ isOpen, onClose }) {
             </AnimatePresence>
 
             {/* Sidebar desktop */}
-            <div className="hidden md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 md:left-0 bg-gradient-to-b from-lime-900 to-lime-800 shadow-xl p-6 text-white z-30">
+            <div className="hidden md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 md:left-0 bg-lime-800 shadow-xl p-6 text-white z-30">
                 <SidebarContent />
             </div>
         </>
