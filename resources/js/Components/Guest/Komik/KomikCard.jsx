@@ -11,7 +11,7 @@ const KomikCard = React.forwardRef((props, ref) => {
             judul: "Belajar Energi Terbarukan",
             deskripsi:
                 "Komik ini mengajarkan tentang berbagai sumber energi terbarukan yang ramah lingkungan.",
-            cover: "https://th.bing.com/th/id/OIP.v6o0VenOmJc_TPf1jA5C7QHaLA?rs=1&pid=ImgDetMain",
+            cover: "/build/images/Komik-Cover/1.png",
             kategori: ["Lingkungan", "IPA"],
         },
         {
@@ -19,7 +19,7 @@ const KomikCard = React.forwardRef((props, ref) => {
             judul: "Petualangan Si Atom",
             deskripsi:
                 "Petualangan seru Si Atom dalam menjelaskan struktur dasar materi.",
-            cover: "https://th.bing.com/th/id/OIP.v6o0VenOmJc_TPf1jA5C7QHaLA?rs=1&pid=ImgDetMain",
+            cover: "/build/images/Komik-Cover/2.png",
             kategori: ["Kimia", "Sains"],
         },
         {
@@ -27,7 +27,7 @@ const KomikCard = React.forwardRef((props, ref) => {
             judul: "Misi Menyelamatkan Hutan",
             deskripsi:
                 "Komik ini menceritakan pentingnya pelestarian hutan dan cara menjaga alam.",
-            cover: "https://th.bing.com/th/id/OIP.v6o0VenOmJc_TPf1jA5C7QHaLA?rs=1&pid=ImgDetMain",
+            cover: "/build/images/Komik-Cover/3.png",
             kategori: ["Lingkungan", "Biologi"],
         },
         {
@@ -35,7 +35,15 @@ const KomikCard = React.forwardRef((props, ref) => {
             judul: "Eksperimen Listrik Si Boltek",
             deskripsi:
                 "Si Boltek melakukan eksperimen kelistrikan yang seru dan edukatif.",
-            cover: "https://th.bing.com/th/id/OIP.v6o0VenOmJc_TPf1jA5C7QHaLA?rs=1&pid=ImgDetMain",
+            cover: "/build/images/Komik-Cover/4.png",
+            kategori: ["IPA", "Fisika"],
+        },
+        {
+            id: 5,
+            judul: "Eksperimen Listrik Si Boltek",
+            deskripsi:
+                "Si Boltek melakukan eksperimen kelistrikan yang seru dan edukatif.",
+            cover: "/build/images/Komik-Cover/5.png",
             kategori: ["IPA", "Fisika"],
         },
     ];
@@ -53,52 +61,51 @@ const KomikCard = React.forwardRef((props, ref) => {
               );
 
     return (
-        <>
-
-            <section
-                ref={ref}
-                className="bg-gradient-to-br from-green-100 to-white min-h-screen py-10"
-            >
-                <div className="container mx-auto px-4">
-                    <div className="flex items-center justify-between mb-8">
-                        <h1 className="text-3xl font-extrabold text-green-800 flex items-center gap-2">
-                            <BookOpen className="w-6 h-6" />
-                            Komik Edukatif
-                        </h1>
-                        <div className="flex items-center gap-2">
-                            <Filter className="w-5 h-5 text-green-600" />
-                            <select
-                                className="border border-green-400 rounded px-3 py-1 text-green-700 bg-white focus:outline-none"
-                                value={selectedKategori}
-                                onChange={(e) =>
-                                    setSelectedKategori(e.target.value)
-                                }
-                            >
-                                {semuaKategori.map((kategori, idx) => (
-                                    <option key={idx} value={kategori}>
-                                        {kategori}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+        <section
+            ref={ref}
+            className="bg-gradient-to-br from-green-100 to-white min-h-screen py-10"
+        >
+            <div className="container mx-auto px-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+                    <h1 className="text-3xl font-extrabold text-green-800 flex items-center gap-2">
+                        <BookOpen className="w-6 h-6" />
+                        Komik Edukatif
+                    </h1>
+                    <div className="flex items-center gap-2">
+                        <Filter className="w-5 h-5 text-green-600" />
+                        <select
+                            className="border border-green-400 rounded px-3 py-1 text-green-700 bg-white focus:outline-none"
+                            value={selectedKategori}
+                            onChange={(e) =>
+                                setSelectedKategori(e.target.value)
+                            }
+                        >
+                            {semuaKategori.map((kategori, idx) => (
+                                <option key={idx} value={kategori}>
+                                    {kategori}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+                </div>
 
-                    {filteredKomik.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {filteredKomik.map((komik) => (
+                {chunkArray(filteredKomik, 3).map((row, rowIndex) => (
+                    <div key={rowIndex}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
+                            {row.map((komik) => (
                                 <Link
                                     key={komik.id}
                                     href={`/komik/${komik.id}`}
                                     className="block transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                                 >
-                                    <div className="relative bg-white/70 backdrop-blur-md border border-green-200 shadow-xl rounded-2xl overflow-hidden cursor-pointer hover:shadow-green-300">
+                                    <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer hover:shadow-lime-600">
                                         <div className="relative">
                                             <img
                                                 src={komik.cover}
                                                 alt={`Cover komik ${komik.judul}`}
-                                                className="w-full h-64 object-cover"
+                                                className="w-full h-auto object-cover "
                                             />
-                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/30 text-white p-4">
+                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/30 text-white p-5">
                                                 <h2 className="text-lg font-bold">
                                                     {komik.judul}
                                                 </h2>
@@ -123,15 +130,28 @@ const KomikCard = React.forwardRef((props, ref) => {
                                 </Link>
                             ))}
                         </div>
-                    ) : (
-                        <p className="text-center text-gray-600">
-                            Tidak ada komik untuk kategori ini.
-                        </p>
-                    )}
-                </div>
-            </section>
-        </>
+
+                        {/* Rak Buku */}
+                        <div className="flex justify-center mb-6">
+                            <img
+                                src="/build/images/rak-buku.png"
+                                alt="Rak Kayu"
+                                className="w-full lg:max-w-[1500px] sm:max-w-[600px] h-auto object-contain"
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
     );
 });
 
 export default KomikCard;
+
+function chunkArray(array, size) {
+    const chunked = [];
+    for (let i = 0; i < array.length; i += size) {
+        chunked.push(array.slice(i, i + size));
+    }
+    return chunked;
+}
