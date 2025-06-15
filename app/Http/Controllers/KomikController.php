@@ -57,6 +57,7 @@ class KomikController extends Controller
             'pengarang' => $validated['pengarang'],
         ]);
 
+
         return redirect()->route('komik.admin')->with('success', 'Komik berhasil ditambahkan.');
     }
 
