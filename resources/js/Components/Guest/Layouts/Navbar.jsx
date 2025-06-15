@@ -54,7 +54,9 @@ const Navbar = () => {
     const normalTextClass =
         currentRoute.startsWith("/komik") ||
         currentRoute.startsWith("/produk") ||
-        currentRoute.startsWith("/login")
+        currentRoute.startsWith("/artikel") ||
+        currentRoute.startsWith("/fungsi-gambut") ||
+        currentRoute.startsWith("/sejarah-ekosistem")
             ? "text-black font-semibold transition-all ease-in-out"
             : "text-white font-semibold transition-all ease-in-out";
 
@@ -85,10 +87,10 @@ const Navbar = () => {
                             label="Tentang"
                             items={[
                                 { label: "Apa Itu Lahan Gambut", path: "/tentang/apa-itu", desc: "Pengertian lahan gambut" },
-                                { label: "Peran & Manfaat", path: "/tentang/peran", desc: "Manfaat lingkungan & sosial" },
+                                { label: "Peran & Manfaat", path: route("fungsi-gambut"), desc: "Manfaat lingkungan & sosial" },
                                 { label: "Ancaman & Konservasi", path: "/tentang/ancaman", desc: "Ancaman ekosistem & solusinya" },
                                 { label: "Potensi Ekonomi", path: "/tentang/potensi", desc: "Peluang ekonomi berkelanjutan" },
-                                { label: "Sejarah Ekosistem", path: "/tentang/sejarah", desc: "Sejarah terbentuknya gambut" }
+                                { label: "Sejarah Ekosistem", path: route("sejarah-ekosistem"), desc: "Sejarah terbentuknya gambut" }
                             ]}
                         />
                     </li>
@@ -98,8 +100,8 @@ const Navbar = () => {
                             label="Edukasi"
                             items={[
                                 { label: "Komik Edukasi", path: route("komik.guest"), desc: "Belajar gambut lewat komik" },
-                                { label: "Video Edukasi", path: "/edukasi/video", desc: "Video pembelajaran menarik" },
-                                { label: "Artikel & Berita", path: "/edukasi/artikel", desc: "Informasi terkini" },
+                                // { label: "Video Edukasi", path: "/edukasi/video", desc: "Video pembelajaran menarik" },
+                                { label: "Artikel & Berita", path:  route("artikel.guest"), desc: "Informasi terkini" },
                                 // { label: "Infografis", path: "/edukasi/infografis", desc: "Gambaran data visual" },
                                 { label: "Quiz & Tes", path: "/edukasi/quiz", desc: "Tes pengetahuan anda" }
                             ]}
