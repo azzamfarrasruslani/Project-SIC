@@ -38,8 +38,8 @@ class KomikController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
-            'thumbnail' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'gambar' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'thumbnail' => 'required|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png,gif|max:5120',
             'pengarang' => 'required|string|max:255',
         ]);
 
@@ -75,8 +75,8 @@ class KomikController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'pengarang' => 'required',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:5120 ',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:5120 ',
         ]);
 
         $komik = Komik::findOrFail($id_komik);
