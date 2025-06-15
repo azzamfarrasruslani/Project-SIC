@@ -1,90 +1,138 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from 'lucide-react';
+
+const Dropdown = ({ label, items }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div
+            className="relative"
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+        >
+            <div className="flex items-center cursor-pointer transition hover:text-lime-600">
+                <span>{label}</span>
+                {/* Panah dropdown */}
+                <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+            </div>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full mt-4 w-60 bg-white rounded-lg shadow-xl z-50 p-3 border border-gray-200"
+                    >
+                        {items.map((item, index) => (
+                            <Link key={index} href={item.path} className="block px-3 py-2 rounded-lg hover:bg-lime-50 transition">
+                                <p className="font-semibold text-gray-800">{item.label}</p>
+                                {item.desc && (
+                                    <p className="text-sm text-gray-500">{item.desc}</p>
+                                )}
+                            </Link>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
+
 
 const Navbar = () => {
     const { url } = usePage();
     const currentRoute = url;
 
-    const navbarBg = currentRoute.startsWith("/komik")
-        ? "bg-white"
-        : currentRoute.startsWith("/produk")
-        ? "bg-white"
-        : currentRoute === "/"
-        ? "bg-transparent"
-        : "bg-trasparent"; // Default background
+    const navbarBg = currentRoute === "/" ? "bg-transparent" : "bg-white shadow";
 
     const activeTextClass = "text-lime-600 border-b-2 border-lime-600";
     const normalTextClass =
-        currentRoute.startsWith("/komik") || currentRoute.startsWith("/produk") || currentRoute.startsWith("/login")
-            ? "text-black hover:text-lime-600  text-slate-850 font-extrabold transition-all ease-in-out lg:px-2 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-[2px] before:bg-lime-600 before:transition-all before:duration-800 before:transform before:-translate-x-1/2 hover:text-lime-200 hover:before:w-full "
-            : "text-white hover:text-lime-200  text-slate-850 font-extrabold transition-all ease-in-out lg:px-2 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-[2px] before:bg-lime-600 before:transition-all before:duration-800 before:transform before:-translate-x-1/2 hover:text-lime-200 hover:before:w-full";
+        currentRoute.startsWith("/komik") ||
+        currentRoute.startsWith("/produk") ||
+        currentRoute.startsWith("/login")
+            ? "text-black font-semibold transition-all ease-in-out"
+            : "text-white font-semibold transition-all ease-in-out";
 
     const logoSrc =
         currentRoute === "/"
             ? "/build/images/logo/PeatlandHero-White.png"
             : "/build/images/logo/PeatlandHero-Color.png";
 
-    const handleLanguageChange = (e) => {
-        const selectedLang = e.target.value;
-        window.location.href = route("change.language", selectedLang);
-    };
-
     return (
-        <nav
-            className={`z-50 w-full py-3 px-4 ${navbarBg} transition-all duration-300`}
-        >
+        <nav className={`z-50 w-full py-4 px-6 ${navbarBg} transition-all duration-300`}>
             <div className="container mx-auto flex items-center justify-between">
-                <img src={logoSrc} alt="logo web" className="w-14 md:w-32" />
+                <Link href={route("home")}>
+                    <img src={logoSrc} alt="logo web" className="w-16 md:w-36" />
+                </Link>
 
-                <div className="flex items-center space-x-6">
-                    <ul className="hidden md:flex space-x-6 text-lg font-semibold">
-                        <li>
-                            <Link
-                                href={route("home")}
-                                className={`relative flex items-center ${
-                                    currentRoute === "/"
-                                        ? activeTextClass
-                                        : normalTextClass
-                                }`}
-                            >
-                                Beranda
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={route("komik.guest")}
-                                className={`relative flex items-center ${
-                                    currentRoute.startsWith("/komik")
-                                        ? activeTextClass
-                                        : normalTextClass
-                                }`}
-                            >
-                                Komik Edukatif
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={route("produk.guest")}
-                                className={`relative flex items-center  ${
-                                    currentRoute.startsWith("/produk")
-                                        ? activeTextClass
-                                        : normalTextClass
-                                }`}
-                            >
-                                Produk Gambut
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+                <ul className="hidden md:flex space-x-8 text-lg items-center">
+                    <li>
+                        <Link
+                            href={route("home")}
+                            className={`relative ${currentRoute === "/" ? activeTextClass : normalTextClass}`}
+                        >
+                            Beranda
+                        </Link>
+                    </li>
 
-                {/* Login + Language Switcher */}
+                    <li className={normalTextClass}>
+                        <Dropdown
+                            label="Tentang"
+                            items={[
+                                { label: "Apa Itu Lahan Gambut", path: "/tentang/apa-itu", desc: "Pengertian lahan gambut" },
+                                { label: "Peran & Manfaat", path: "/tentang/peran", desc: "Manfaat lingkungan & sosial" },
+                                { label: "Ancaman & Konservasi", path: "/tentang/ancaman", desc: "Ancaman ekosistem & solusinya" },
+                                { label: "Potensi Ekonomi", path: "/tentang/potensi", desc: "Peluang ekonomi berkelanjutan" },
+                                { label: "Sejarah Ekosistem", path: "/tentang/sejarah", desc: "Sejarah terbentuknya gambut" }
+                            ]}
+                        />
+                    </li>
+
+                    <li className={normalTextClass}>
+                        <Dropdown
+                            label="Edukasi"
+                            items={[
+                                { label: "Komik Edukasi", path: route("komik.guest"), desc: "Belajar gambut lewat komik" },
+                                { label: "Video Edukasi", path: "/edukasi/video", desc: "Video pembelajaran menarik" },
+                                { label: "Artikel & Berita", path: "/edukasi/artikel", desc: "Informasi terkini" },
+                                // { label: "Infografis", path: "/edukasi/infografis", desc: "Gambaran data visual" },
+                                { label: "Quiz & Tes", path: "/edukasi/quiz", desc: "Tes pengetahuan anda" }
+                            ]}
+                        />
+                    </li>
+
+                    <li>
+                        <Link
+                            href={route("produk.guest")}
+                            className={`relative ${currentRoute.startsWith("/produk") ? activeTextClass : normalTextClass}`}
+                        >
+                            Produk Gambut
+                        </Link>
+                    </li>
+
+                    <li className={normalTextClass}>
+                        <Dropdown
+                            label="Lainnya"
+                            items={[
+                                { label: "Peta Gambut", path: "/peta-gambut", desc: "Peta sebaran gambut" },
+                                // { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
+                                { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
+                                { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
+                                { label: "Kontributor", path: "/tentang/kontributor", desc: "Tim & kolaborator" }
+                            ]}
+                        />
+                    </li>
+                </ul>
+
                 <div className="flex items-center space-x-4">
-
-                    {/* Tombol Login yang Lebih Menarik */}
                     <Link
                         href={route("login")}
-                        className="bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-600 hover:to-lime-700 text-white px-4 py-2 rounded-xl text-sm md:text-base font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
+                        className="bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-600 hover:to-lime-700 text-white px-5 py-2 rounded-lg text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-300"
                     >
                         Login
                     </Link>
