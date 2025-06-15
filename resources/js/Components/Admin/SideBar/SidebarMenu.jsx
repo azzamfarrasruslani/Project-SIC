@@ -26,11 +26,11 @@ export default function SidebarMenu() {
             routeName: "kuis.admin",
             icon: "kuis",
         },
-        {
-            label: "Artikel",
-            routeName: "artikel-admin.index",
-            icon: "artikel",
-        },
+        // {
+        //     label: "Artikel",
+        //     routeName: "artikel-admin.index",
+        //     icon: "artikel",
+        // },
 
     ];
 
