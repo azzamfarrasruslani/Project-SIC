@@ -8,15 +8,14 @@ use Inertia\Inertia;
 
 class ArtikelController extends Controller
 {
-    public function index()
+    public function artikelGuest()
     {
-        // Mengambil semua artikel
-        $artikels = Artikel::all();
-        
-        // Kirim data artikel ke komponen React (pastikan namanya konsisten)
-        return Inertia::render('Artikel/Index', [
-            'artikels' => $artikels // gunakan 'artikels' agar konsisten
-        ]);
+        return Inertia::render('Guest/Artikel/Index');
+    }
+
+    public function artikelAdmin()
+    {
+        return Inertia::render('Admin/Artikel/Index');
     }
 
     public function create()
