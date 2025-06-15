@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { route } from "ziggy-js";
 
 // Import komponen reusable
 import FormInput from "@/Components/Admin/Common/FormInput";
@@ -62,7 +63,7 @@ export default function Edit() {
             );
 
             // redirect ke halaman admin komik setelah sukses
-            window.location.href = "/komik";
+            window.location.href = route("komik.admin");
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors);
