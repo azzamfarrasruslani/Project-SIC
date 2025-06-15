@@ -57,10 +57,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // =Komik route=
     Route::get('/komik', [KomikController::class, 'KomikAdmin'])->name('komik.admin');
     Route::get('/komik/create', [KomikController::class, 'create'])->name('komik.create');
-    Route::delete('/komik/{id}', [KomikController::class, 'destroy'])->name('komik.destroy');
-    Route::get('/komik/{id}/edit', [KomikController::class, 'edit'])->name('komik.edit');
     Route::post('/komik', [KomikController::class, 'store'])->name('komik.store');
-
+    Route::get('/komik/{id}/edit', [KomikController::class, 'edit'])->name('komik.edit');
+    Route::post('/komik/{id}/update', [KomikController::class, 'update'])->name('komik.update');
+    Route::delete('/komik/{id}', [KomikController::class, 'destroy'])->name('komik.destroy');
 
     // =Kuis route=
     Route::get('/kuis', [KuisController::class, 'KuisAdmin'])->name('kuis.admin');
@@ -71,10 +71,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::delete('/kuis/{id}', [KuisController::class, 'destroy'])->name('kuis.destroy');
 
     // Route tambahan untuk destroy dengan parameter `id_artikel`
-    Route::delete('/artikel-admin/{id_artikel}', [ArtikelController::class, 'destroy'])->name('artikel-admin.destroy');
-    Route::resource('/artikel-admin', ArtikelController::class);
+
+
+    // Route::delete('/artikel-admin/{id_artikel}', [ArtikelController::class, 'destroy'])->name('artikel-admin.destroy');
+    // Route::resource('/artikel-admin', ArtikelController::class);
 });
-Route::put('/komik-admin/{id}', [KomikController::class, 'update'])->name('komik.update');
+
 
 // ===================
 //=== Error routes ===
