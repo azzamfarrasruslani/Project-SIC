@@ -1,63 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { usePage, Link } from "@inertiajs/react";
 import { BookOpen, Filter } from "lucide-react";
 
 const KomikCard = React.forwardRef((props, ref) => {
+    const { komik: komikList } = usePage().props;
+
     const [selectedKategori, setSelectedKategori] = useState("Semua");
 
-    const komikList = [
-        {
-            id: 1,
-            judul: "Belajar Energi Terbarukan",
-            deskripsi:
-                "Komik ini mengajarkan tentang berbagai sumber energi terbarukan yang ramah lingkungan.",
-            cover: "/build/images/Komik-Cover/1.png",
-            kategori: ["Lingkungan", "IPA"],
-        },
-        {
-            id: 2,
-            judul: "Petualangan Si Atom",
-            deskripsi:
-                "Petualangan seru Si Atom dalam menjelaskan struktur dasar materi.",
-            cover: "/build/images/Komik-Cover/2.png",
-            kategori: ["Kimia", "Sains"],
-        },
-        {
-            id: 3,
-            judul: "Misi Menyelamatkan Hutan",
-            deskripsi:
-                "Komik ini menceritakan pentingnya pelestarian hutan dan cara menjaga alam.",
-            cover: "/build/images/Komik-Cover/3.png",
-            kategori: ["Lingkungan", "Biologi"],
-        },
-        {
-            id: 4,
-            judul: "Eksperimen Listrik Si Boltek",
-            deskripsi:
-                "Si Boltek melakukan eksperimen kelistrikan yang seru dan edukatif.",
-            cover: "/build/images/Komik-Cover/4.png",
-            kategori: ["IPA", "Fisika"],
-        },
-        {
-            id: 5,
-            judul: "Eksperimen Listrik Si Boltek",
-            deskripsi:
-                "Si Boltek melakukan eksperimen kelistrikan yang seru dan edukatif.",
-            cover: "/build/images/Komik-Cover/5.png",
-            kategori: ["IPA", "Fisika"],
-        },
-    ];
-
+    // Ambil semua kategori unik dari data database (misalnya kamu simpan kategori di field database, disesuaikan jika belum ada)
     const semuaKategori = [
         "Semua",
-        ...new Set(komikList.flatMap((k) => k.kategori)),
+        ...new Set(
+            komikList.flatMap((k) => (k.kategori ? k.kategori.split(",") : []))
+        ),
     ];
 
     const filteredKomik =
         selectedKategori === "Semua"
             ? komikList
             : komikList.filter((komik) =>
-                  komik.kategori.includes(selectedKategori)
+                  komik.kategori &&
+                  komik.kategori.split(",").includes(selectedKategori)
               );
 
     return (
@@ -94,14 +57,14 @@ const KomikCard = React.forwardRef((props, ref) => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
                             {row.map((komik) => (
                                 <Link
-                                    key={komik.id}
-                                    href={`/komik/${komik.id}`}
+                                    key={komik.id_komik}
+                                    href={`/komik/${komik.id_komik}`}
                                     className="block transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                                 >
                                     <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer hover:shadow-lime-600">
                                         <div className="relative">
                                             <img
-                                                src={komik.cover}
+                                                src={`/storage/${komik.thumbnail}`}
                                                 alt={`Cover komik ${komik.judul}`}
                                                 className="w-full h-auto object-cover "
                                             />
@@ -112,18 +75,6 @@ const KomikCard = React.forwardRef((props, ref) => {
                                                 <p className="text-sm mt-1 line-clamp-2 italic">
                                                     {komik.deskripsi}
                                                 </p>
-                                                <div className="flex flex-wrap gap-2 mt-2">
-                                                    {komik.kategori.map(
-                                                        (tag, i) => (
-                                                            <span
-                                                                key={i}
-                                                                className="bg-green-600/80 text-white text-xs px-2 py-0.5 rounded-full"
-                                                            >
-                                                                #{tag}
-                                                            </span>
-                                                        )
-                                                    )}
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +82,6 @@ const KomikCard = React.forwardRef((props, ref) => {
                             ))}
                         </div>
 
-                        {/* Rak Buku */}
                         <div className="flex justify-center mb-6">
                             <img
                                 src="/build/images/rak-buku.png"
