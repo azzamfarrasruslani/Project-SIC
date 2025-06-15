@@ -22,8 +22,8 @@ const Navbar = () => {
 
     const logoSrc =
         currentRoute === "/"
-            ? "/build/images/logo/SIC Logo Vertical - White.png"
-            : "/build/images/logo/SIC Logo Vertical - Color.png";
+            ? "/build/images/logo/PeatlandHero-White.png"
+            : "/build/images/logo/PeatlandHero-Color.png";
 
     const handleLanguageChange = (e) => {
         const selectedLang = e.target.value;
@@ -35,7 +35,7 @@ const Navbar = () => {
             className={`z-50 w-full py-3 px-4 ${navbarBg} transition-all duration-300`}
         >
             <div className="container mx-auto flex items-center justify-between">
-                <img src={logoSrc} alt="logo web" className="w-14 md:w-16" />
+                <img src={logoSrc} alt="logo web" className="w-14 md:w-32" />
 
                 <div className="flex items-center space-x-6">
                     <ul className="hidden md:flex space-x-6 text-lg font-semibold">
@@ -80,40 +80,6 @@ const Navbar = () => {
 
                 {/* Login + Language Switcher */}
                 <div className="flex items-center space-x-4">
-
-                    {/* <div className="flex border border-lime-700 rounded-md overflow-hidden">
-                        <button
-                            onClick={() =>
-                                (window.location.href = route(
-                                    "change.language",
-                                    "id"
-                                ))
-                            }
-                            className={`px-4 py-1 text-sm font-semibold transition-colors duration-300 ${
-                                route().params.language === "id" ||
-                                !route().params.language
-                                    ? "bg-lime-600 text-white"
-                                    : "bg-white text-lime-600"
-                            }`}
-                        >
-                            ID
-                        </button>
-                        <button
-                            onClick={() =>
-                                (window.location.href = route(
-                                    "change.language",
-                                    "en"
-                                ))
-                            }
-                            className={`px-4 py-1 text-sm font-semibold transition-colors duration-300 ${
-                                route().params.language === "en"
-                                    ? "bg-lime-600 text-white"
-                                    : "bg-white text-lime-600"
-                            }`}
-                        >
-                            EN
-                        </button>
-                    </div> */}
 
                     {/* Tombol Login yang Lebih Menarik */}
                     <Link
