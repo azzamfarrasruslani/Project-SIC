@@ -42,7 +42,16 @@ Route::get('/komik', [KomikController::class, 'komikGuest'])->name('komik.guest'
 // =Produk route=
 Route::get('/produk', [ProdukController::class, 'produkGuest'])->name('produk.guest');
 
+// =Artikel route=
+Route::get('/artikel', [ArtikelController::class, 'artikelGuest'])->name('artikel.guest');
 
+// =Tentang route=
+Route::get('/sejarah-ekosistem', function () {
+    return Inertia::render('Guest/Tentang/SejarahEkosistem');
+})->name('sejarah-ekosistem');
+Route::get('/fungsi-gambut', function () {
+    return Inertia::render('Guest/Tentang/FungsiGambut');
+})->name('fungsi-gambut');
 
 // ===================
 //=== Admin routes ===
