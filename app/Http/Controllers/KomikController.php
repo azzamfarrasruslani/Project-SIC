@@ -66,7 +66,7 @@ class KomikController extends Controller
     public function edit($id_komik)
     {
         $komik = Komik::findOrFail($id_komik);
-        return Inertia::render('KomikAdmin/Edit', ['komik' => $komik]);
+        return Inertia::render('Admin/Komik/Edit', ['komik' => $komik]);
     }
 
     public function update(Request $request, $id_komik)
