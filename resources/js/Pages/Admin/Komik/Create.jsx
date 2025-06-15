@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import FormInput from "@/Components/Admin/Common/FormInput";
+import FormTextarea from "@/Components/Admin/Common/FormTextarea";
+import FormFile from "@/Components/Admin/Common/FormFile";
 
 export default function Create() {
     const [form, setForm] = useState({
@@ -48,11 +51,10 @@ export default function Create() {
                 },
             });
 
-            // Jika berhasil
-            window.location.href = "/admin/komik"; // Redirect manual
+            window.location.href = "/admin/komik";
         } catch (error) {
             if (error.response?.status === 422) {
-                setErrors(error.response.data.errors); // Tampilkan error validasi
+                setErrors(error.response.data.errors);
             } else {
                 console.error("Gagal menyimpan data", error);
             }
@@ -66,78 +68,42 @@ export default function Create() {
             <div>
                 <h1 className="text-xl font-bold mb-4">Tambah Komik</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <input
-                            type="text"
-                            name="judul"
-                            value={form.judul}
-                            onChange={handleChange}
-                            placeholder="Judul"
-                            className="w-full p-2 border rounded"
-                        />
-                        {errors.judul && (
-                            <p className="text-red-500 text-sm">
-                                {errors.judul}
-                            </p>
-                        )}
-                    </div>
-                    <div>
-                        <textarea
-                            name="deskripsi"
-                            value={form.deskripsi}
-                            onChange={handleChange}
-                            placeholder="Deskripsi"
-                            className="w-full p-2 border rounded"
-                        />
-                        {errors.deskripsi && (
-                            <p className="text-red-500 text-sm">
-                                {errors.deskripsi}
-                            </p>
-                        )}
-                    </div>
-                    <div>
-                        <input
-                            type="file"
-                            name="thumbnail"
-                            onChange={(e) =>
-                                handleFileChange(e, "thumbnail")
-                            }
-                            className="w-full p-2 border rounded"
-                        />
-                        {errors.thumbnail && (
-                            <p className="text-red-500 text-sm">
-                                {errors.thumbnail}
-                            </p>
-                        )}
-                    </div>
-                    <div>
-                        <input
-                            type="file"
-                            name="gambar"
-                            onChange={(e) => handleFileChange(e, "gambar")}
-                            className="w-full p-2 border rounded"
-                        />
-                        {errors.gambar && (
-                            <p className="text-red-500 text-sm">
-                                {errors.gambar}
-                            </p>
-                        )}
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            name="pengarang"
-                            value={form.pengarang}
-                            onChange={handleChange}
-                            placeholder="Pengarang"
-                            className="w-full p-2 border rounded"
-                        />
-                        {errors.pengarang && (
-                            <p className="text-red-500 text-sm">
-                                {errors.pengarang}
-                            </p>
-                        )}
-                    </div>
+                    <FormInput
+                        label="Judul"
+                        name="judul"
+                        value={form.judul}
+                        onChange={handleChange}
+                        placeholder="Masukkan Judul"
+                        error={errors.judul}
+                    />
+                    <FormTextarea
+                        label="Deskripsi"
+                        name="deskripsi"
+                        value={form.deskripsi}
+                        onChange={handleChange}
+                        placeholder="Masukkan Deskripsi"
+                        error={errors.deskripsi}
+                    />
+                    <FormFile
+                        label="Thumbnail"
+                        name="thumbnail"
+                        onChange={(e) => handleFileChange(e, "thumbnail")}
+                        error={errors.thumbnail}
+                    />
+                    <FormFile
+                        label="Gambar"
+                        name="gambar"
+                        onChange={(e) => handleFileChange(e, "gambar")}
+                        error={errors.gambar}
+                    />
+                    <FormInput
+                        label="Pengarang"
+                        name="pengarang"
+                        value={form.pengarang}
+                        onChange={handleChange}
+                        placeholder="Masukkan Nama Pengarang"
+                        error={errors.pengarang}
+                    />
                     <button
                         type="submit"
                         disabled={loading}
