@@ -51,14 +51,11 @@ const Navbar = () => {
     const navbarBg = currentRoute === "/" ? "bg-transparent" : "bg-white shadow";
 
     const activeTextClass = "text-lime-600 border-b-2 border-lime-600";
-    const normalTextClass =
-        currentRoute.startsWith("/komik") ||
-        currentRoute.startsWith("/produk") ||
-        currentRoute.startsWith("/artikel") ||
-        currentRoute.startsWith("/fungsi-gambut") ||
-        currentRoute.startsWith("/sejarah-ekosistem")
-            ? "text-black font-semibold transition-all ease-in-out"
-            : "text-white font-semibold transition-all ease-in-out";
+   const normalTextClass =
+    currentRoute === "/"
+        ? "text-white font-semibold transition-all ease-in-out"
+        : "text-black font-semibold transition-all ease-in-out";
+
 
     const logoSrc =
         currentRoute === "/"
@@ -125,7 +122,7 @@ const Navbar = () => {
                                 // { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
                                 { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
                                 { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
-                                { label: "Kontributor", path: "/tentang/kontributor", desc: "Tim & kolaborator" }
+                                { label: "Kontributor", path: route("kontributor"), desc: "Tim & kolaborator" }
                             ]}
                         />
                     </li>
