@@ -53,6 +53,15 @@ Route::get('/fungsi-gambut', function () {
     return Inertia::render('Guest/Tentang/FungsiGambut');
 })->name('fungsi-gambut');
 
+
+// =Lainnya route=
+Route::get('/kontributor', function () {
+    return Inertia::render('Guest/Lainnya/Kontributor');
+})->name('kontributor');
+
+
+
+
 // ===================
 //=== Admin routes ===
 // ===================
