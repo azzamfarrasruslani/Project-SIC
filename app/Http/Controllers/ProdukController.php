@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\HeroProduk;
+
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,9 +14,12 @@ class ProdukController extends Controller
 {
 
     public function produkGuest(): Response
-    {
-        return Inertia::render('Guest/Produk/Index');
-    }
+{
+    $heroImages = HeroProduk::all();
+    return Inertia::render('Guest/Produk/Index', [
+        'heroImages' => $heroImages,
+    ]);
+}
 
     public function produkAdmin(): Response
     {
@@ -23,6 +28,9 @@ class ProdukController extends Controller
             'produk' => $produk
         ]);
     }
+
+
+
 
     public function create()
     {
