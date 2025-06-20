@@ -4,6 +4,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KomikController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\HeroProdukController;
 use App\Models\Komik;
 use App\Http\Controllers\KuisController;
 use Illuminate\Foundation\Application;
@@ -72,11 +73,20 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // =Produk route=
     Route::get('/produk', [ProdukController::class, 'produkAdmin'])->name('produk.admin');
+
     Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
     Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::post('/produk/{id}/update', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
+    // =Hero Produk route=
+    Route::get('/hero-produk', [HeroProdukController::class, 'index'])->name('produk.hero');
+    Route::get('/hero-produk/create', [HeroProdukController::class, 'create'])->name('hero.create');
+    Route::get('/hero-produk/{id}/edit', [HeroProdukController::class, 'edit'])->name('hero.edit');
+    Route::post('/hero-produk', [HeroProdukController::class, 'store'])->name('hero.store');
+    Route::post('/hero-produk/{id}', [HeroProdukController::class, 'update'])->name('hero.update');
+    Route::delete('/hero-produk/{id}', [HeroProdukController::class, 'destroy'])->name('hero.destroy');
 
     // =Komik route=
     Route::get('/komik', [KomikController::class, 'KomikAdmin'])->name('komik.admin');
