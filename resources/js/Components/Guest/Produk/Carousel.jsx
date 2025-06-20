@@ -5,10 +5,12 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { usePage } from "@inertiajs/react";
 
 const Carousel = () => {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
+    const { heroImages } = usePage().props;
 
     useEffect(() => {
         const updateSwiperNavigation = () => {
@@ -41,30 +43,25 @@ const Carousel = () => {
                     }}
                     className="w-full h-[500px] max-h-[690px]"
                 >
-                    <SwiperSlide className="flex items-center justify-center text-white">
-                        <img
-                            src="/build/images/Product-Carousel/1.png"
-                            alt="gambar"
-                            className="object-cover w-full h-full"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide className="flex items-center justify-center text-white">
-                        <img
-                            src="/build/images/Product-Carousel/2.png"
-                            alt="gambar"
-                            className="object-cover w-full h-full"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide className="flex items-center justify-center text-white">
-                        <img
-                            src="/build/images/Product-Carousel/3.png"
-                            alt="gambar"
-                            className="object-cover w-full h-full"
-                        />
-                    </SwiperSlide>
+                    {heroImages.length > 0 ? (
+                        heroImages.map((hero) => (
+                            <SwiperSlide key={hero.id_hero}>
+                                <img
+                                    src={`/storage/${hero.gambar}`}
+                                    alt={`Hero ${hero.id_hero}`}
+                                    className="object-cover w-full h-full"
+                                />
+                            </SwiperSlide>
+                        ))
+                    ) : (
+                        <SwiperSlide>
+                            <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-100">
+                                Tidak ada gambar hero.
+                            </div>
+                        </SwiperSlide>
+                    )}
                 </Swiper>
 
-                {/* Tombol Navigasi Kustom */}
                 <button
                     ref={prevRef}
                     className="bg-opacity-50 absolute top-1/2 left-5 z-10 hidden -translate-y-1/2 transform rounded-full bg-white p-3 text-black lg:block"
