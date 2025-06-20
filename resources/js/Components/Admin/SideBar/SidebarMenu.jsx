@@ -29,7 +29,7 @@ export default function SidebarMenu() {
                 },
                 {
                     label: "Hero Section Produk",
-                    routeName: "produk.admin",
+                    routeName: "produk.hero",
                 },
             ],
         },
