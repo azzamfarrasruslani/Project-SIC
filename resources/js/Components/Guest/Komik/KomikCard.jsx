@@ -1,27 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { usePage, Link } from "@inertiajs/react";
-import { BookOpen, Filter } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 const KomikCard = React.forwardRef((props, ref) => {
     const { komik: komikList } = usePage().props;
-
-    const [selectedKategori, setSelectedKategori] = useState("Semua");
-
-    // Ambil semua kategori unik dari data database (misalnya kamu simpan kategori di field database, disesuaikan jika belum ada)
-    const semuaKategori = [
-        "Semua",
-        ...new Set(
-            komikList.flatMap((k) => (k.kategori ? k.kategori.split(",") : []))
-        ),
-    ];
-
-    const filteredKomik =
-        selectedKategori === "Semua"
-            ? komikList
-            : komikList.filter((komik) =>
-                  komik.kategori &&
-                  komik.kategori.split(",").includes(selectedKategori)
-              );
 
     return (
         <section
@@ -34,25 +16,9 @@ const KomikCard = React.forwardRef((props, ref) => {
                         <BookOpen className="w-6 h-6" />
                         Komik Edukatif
                     </h1>
-                    <div className="flex items-center gap-2">
-                        <Filter className="w-5 h-5 text-green-600" />
-                        <select
-                            className="border border-green-400 rounded px-3 py-1 text-green-700 bg-white focus:outline-none"
-                            value={selectedKategori}
-                            onChange={(e) =>
-                                setSelectedKategori(e.target.value)
-                            }
-                        >
-                            {semuaKategori.map((kategori, idx) => (
-                                <option key={idx} value={kategori}>
-                                    {kategori}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
                 </div>
 
-                {chunkArray(filteredKomik, 3).map((row, rowIndex) => (
+                {chunkArray(komikList, 3).map((row, rowIndex) => (
                     <div key={rowIndex}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
                             {row.map((komik) => (
@@ -66,14 +32,14 @@ const KomikCard = React.forwardRef((props, ref) => {
                                             <img
                                                 src={`/storage/${komik.thumbnail}`}
                                                 alt={`Cover komik ${komik.judul}`}
-                                                className="w-full h-auto object-cover "
+                                                className="w-full h-auto object-cover"
                                             />
                                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/30 text-white p-5">
                                                 <h2 className="text-lg font-bold">
                                                     {komik.judul}
                                                 </h2>
                                                 <p className="text-sm mt-1 line-clamp-2 italic">
-                                                    {komik.deskripsi}
+                                                    {komik.deskripsi || "Deskripsi belum tersedia."}
                                                 </p>
                                             </div>
                                         </div>
@@ -101,7 +67,7 @@ export default KomikCard;
 function chunkArray(array, size) {
     const chunked = [];
     for (let i = 0; i < array.length; i += size) {
-        chunked.push(array.slice(i, i + size));
+        chunked.push(array.slice(i + 0, i + size));
     }
     return chunked;
 }
