@@ -20,6 +20,13 @@ class KomikController extends Controller
         ]);
     }
 
+    public function showGuest($id_komik)
+    {
+        $komik = Komik::with('gambarKomik')->findOrFail($id_komik);
+        return Inertia::render('Guest/Komik/Show', ['komik' => $komik]);
+    }
+
+
     public function komikAdmin()
     {
         $komik = Komik::with('gambarKomik')->get(); // penting
