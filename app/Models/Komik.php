@@ -15,7 +15,12 @@ class Komik extends Model
         'judul',
         'deskripsi',
         'thumbnail',
-        'gambar',
         'pengarang',
     ];
+
+    public function gambarKomik()
+    {
+        return $this->hasMany(GambarKomik::class, 'id_komik')->orderBy('urutan');
+    }
+
 }
