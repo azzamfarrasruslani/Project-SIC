@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komik;
+use App\Models\GambarKomik;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -13,7 +14,7 @@ class KomikController extends Controller
 
     public function komikGuest()
     {
-        $komik = Komik::all();
+        $komik = Komik::with('gambarKomik')->get();
         return Inertia::render('Guest/Komik/Index', [
             'komik' => $komik,
         ]);
@@ -21,13 +22,12 @@ class KomikController extends Controller
 
     public function komikAdmin()
     {
-
-        $komik = Komik::all();
-
+        $komik = Komik::with('gambarKomik')->get(); // penting
         return Inertia::render('Admin/Komik/Index', [
             'komik' => $komik,
         ]);
     }
+
 
 
     public function create()
@@ -35,34 +35,39 @@ class KomikController extends Controller
         return Inertia::render('Admin/Komik/Create');
     }
 
-    // Menyimpan data komik yang baru ditambahkan
     public function store(Request $request)
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
             'thumbnail' => 'required|image|mimes:jpg,jpeg,png,gif|max:5120',
-            'gambar' => 'required|image|mimes:jpg,jpeg,png,gif|max:5120',
+            'gambar.*' => 'required|image|mimes:jpg,jpeg,png,gif|max:5120',
             'pengarang' => 'required|string|max:255',
         ]);
 
-        // Upload file thumbnail
         $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
-        // Upload file gambar
-        $gambarPath = $request->file('gambar')->store('gambar', 'public');
 
-        // Simpan data komik ke database
-        Komik::create([
+        // Simpan komik dulu
+        $komik = Komik::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
             'thumbnail' => $thumbnailPath,
-            'gambar' => $gambarPath,
             'pengarang' => $validated['pengarang'],
         ]);
 
+        // Simpan semua gambar panel komik
+        foreach ($request->file('gambar') as $index => $file) {
+            $path = $file->store("komik/{$komik->id_komik}", 'public'); // ganti id → id_komik
+            GambarKomik::create([
+                'id_komik' => $komik->id_komik, // ganti id → id_komik
+                'gambar' => $path,
+                'urutan' => $index + 1,
+            ]);
+        }
 
         return redirect()->route('komik.admin')->with('success', 'Komik berhasil ditambahkan.');
     }
+
 
 
     // Menampilkan halaman form edit untuk mengubah komik
@@ -78,8 +83,8 @@ class KomikController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'pengarang' => 'required',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:5120 ',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:5120 ',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         $komik = Komik::findOrFail($id_komik);
@@ -90,11 +95,19 @@ class KomikController extends Controller
             $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails', 'public');
         }
 
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('gambars', 'public');
-        }
-
         $komik->update($data);
+
+        // Jika user upload gambar baru, tambahkan sebagai panel baru
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $index => $file) {
+                $path = $file->store("komik/{$komik->id_komik}", 'public'); // ganti id → id_komik
+                GambarKomik::create([
+                    'id_komik' => $komik->id_komik, // ganti id → id_komik
+                    'gambar' => $path,
+                    'urutan' => $komik->gambarKomik()->count() + $index + 1,
+                ]);
+            }
+        }
 
         return redirect()->route('komik.admin')->with('success', 'Komik berhasil diperbarui.');
     }
