@@ -73,7 +73,6 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // =Produk route=
     Route::get('/produk', [ProdukController::class, 'produkAdmin'])->name('produk.admin');
-
     Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
     Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
