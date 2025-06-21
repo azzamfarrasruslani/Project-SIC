@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-
 import { usePage, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { route } from "ziggy-js";
@@ -18,7 +17,7 @@ export default function Edit() {
         deskripsi: komik.deskripsi || "",
         pengarang: komik.pengarang || "",
         thumbnail: null,
-        gambar: null,
+        gambar: [],
     });
 
     const [loading, setLoading] = useState(false);
@@ -33,9 +32,10 @@ export default function Edit() {
     };
 
     const handleFileChange = (e, name) => {
+        const files = e.target.files;
         setForm((prev) => ({
             ...prev,
-            [name]: e.target.files[0],
+            [name]: name === "gambar" ? [...files] : files[0],
         }));
     };
 
@@ -49,7 +49,11 @@ export default function Edit() {
         formData.append("deskripsi", form.deskripsi);
         formData.append("pengarang", form.pengarang);
         if (form.thumbnail) formData.append("thumbnail", form.thumbnail);
-        if (form.gambar) formData.append("gambar", form.gambar);
+
+        // Kirim gambar[] jika ada
+        form.gambar.forEach((file, index) => {
+            formData.append(`gambar[${index}]`, file);
+        });
 
         try {
             await axios.post(
@@ -60,7 +64,7 @@ export default function Edit() {
                 }
             );
 
-            window.location.href = route("komik.admin");
+            router.visit(route("komik.admin"));
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors);
@@ -75,9 +79,7 @@ export default function Edit() {
     return (
         <AuthenticatedLayout>
             <div className="max-w-3xl mx-auto p-6">
-                <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-                    Edit Komik
-                </h1>
+                <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Edit Komik</h1>
 
                 <div className="bg-white p-6 rounded-lg shadow-md border">
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -113,16 +115,12 @@ export default function Edit() {
                                 <FormFile
                                     label="Thumbnail Baru (Opsional)"
                                     name="thumbnail"
-                                    onChange={(e) =>
-                                        handleFileChange(e, "thumbnail")
-                                    }
+                                    onChange={(e) => handleFileChange(e, "thumbnail")}
                                     error={errors.thumbnail}
                                 />
                                 {komik.thumbnail && (
                                     <div className="mt-3 p-2 border rounded-lg bg-gray-50 shadow-sm">
-                                        <p className="text-sm text-gray-600 mb-2">
-                                            Thumbnail Lama:
-                                        </p>
+                                        <p className="text-sm text-gray-600 mb-2">Thumbnail Lama:</p>
                                         <img
                                             src={`/storage/${komik.thumbnail}`}
                                             alt="Thumbnail lama"
@@ -134,23 +132,25 @@ export default function Edit() {
 
                             <div>
                                 <FormFile
-                                    label="Gambar Baru (Opsional)"
+                                    label="Gambar Panel Baru (Opsional)"
                                     name="gambar"
-                                    onChange={(e) =>
-                                        handleFileChange(e, "gambar")
-                                    }
-                                    error={errors.gambar}
+                                    onChange={(e) => handleFileChange(e, "gambar")}
+                                    error={errors["gambar.0"] || errors.gambar}
+                                    multiple
                                 />
-                                {komik.gambar && (
+                                {komik.gambar_komik?.length > 0 && (
                                     <div className="mt-3 p-2 border rounded-lg bg-gray-50 shadow-sm">
-                                        <p className="text-sm text-gray-600 mb-2">
-                                            Gambar Lama:
-                                        </p>
-                                        <img
-                                            src={`/storage/${komik.gambar}`}
-                                            alt="Gambar lama"
-                                            className="w-32 h-32 object-cover rounded shadow"
-                                        />
+                                        <p className="text-sm text-gray-600 mb-2">Panel Gambar Lama:</p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {komik.gambar_komik.map((g, i) => (
+                                                <img
+                                                    key={i}
+                                                    src={`/storage/${g.gambar}`}
+                                                    alt={`Panel ${i + 1}`}
+                                                    className="w-20 h-28 object-cover rounded shadow"
+                                                />
+                                            ))}
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -161,18 +161,14 @@ export default function Edit() {
                                 type="submit"
                                 disabled={loading}
                                 className={`px-8 py-3 rounded-lg font-semibold transition-all shadow-md ${
-                                    loading
-                                        ? "bg-lime-600 cursor-not-allowed"
-                                        : "bg-lime-800 hover:bg-lime-600  text-white"
+                                    loading ? "bg-lime-600 cursor-not-allowed" : "bg-lime-800 hover:bg-lime-600 text-white"
                                 }`}
                             >
                                 {loading ? "Menyimpan..." : "Simpan Perubahan"}
                             </button>
                             <button
                                 type="button"
-                                onClick={() =>
-                                    router.visit(route("komik.admin"))
-                                }
+                                onClick={() => router.visit(route("komik.admin"))}
                                 className="px-8 py-3 rounded-lg font-semibold transition-all bg-gray-300 hover:bg-gray-400 shadow-md text-gray-700"
                             >
                                 Batal
