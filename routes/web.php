@@ -39,6 +39,8 @@ Route::get('/', function () {
 
 // =Komik route=
 Route::get('/komik', [KomikController::class, 'komikGuest'])->name('komik.guest');
+Route::get('/komik/{id_komik}', [KomikController::class, 'showGuest'])->name('komik.show');
+
 
 // =Produk route=
 Route::get('/produk', [ProdukController::class, 'produkGuest'])->name('produk.guest');
