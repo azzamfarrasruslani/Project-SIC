@@ -39,7 +39,7 @@ export default function Index({ komik }) {
                                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Pengarang</th>
                                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Deskripsi</th>
                                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Thumbnail</th>
-                                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Gambar</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Gambar Panel</th>
                                 <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase">Aksi</th>
                             </tr>
                         </thead>
@@ -49,7 +49,9 @@ export default function Index({ komik }) {
                                     <td className="px-6 py-4 text-sm text-gray-900">{item.judul}</td>
                                     <td className="px-6 py-4 text-sm text-gray-700">{item.pengarang}</td>
                                     <td className="px-6 py-4 text-sm text-gray-700">
-                                        {item.deskripsi.length > 100 ? item.deskripsi.slice(0, 100) + "..." : item.deskripsi}
+                                        {item.deskripsi.length > 100
+                                            ? item.deskripsi.slice(0, 100) + "..."
+                                            : item.deskripsi}
                                     </td>
                                     <td className="px-6 py-4">
                                         <img
@@ -59,11 +61,21 @@ export default function Index({ komik }) {
                                         />
                                     </td>
                                     <td className="px-6 py-4">
-                                        <img
-                                            src={`/storage/${item.gambar}`}
-                                            alt={item.judul}
-                                            className="w-16 h-16 object-cover rounded shadow"
-                                        />
+                                        <div className="flex flex-wrap gap-1">
+                                            {item.gambar_komik?.slice(0, 3).map((gambar, index) => (
+                                                <img
+                                                    key={index}
+                                                    src={`/storage/${gambar.gambar}`}
+                                                    alt={`Panel ${index + 1}`}
+                                                    className="w-12 h-12 object-cover rounded shadow"
+                                                />
+                                            ))}
+                                            {item.gambar_komik?.length > 3 && (
+                                                <span className="text-xs text-gray-500 ml-2">
+                                                    +{item.gambar_komik.length - 3} lagi
+                                                </span>
+                                            )}
+                                        </div>
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex justify-center space-x-3">
