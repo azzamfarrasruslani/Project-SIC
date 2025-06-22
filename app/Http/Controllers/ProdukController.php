@@ -15,9 +15,12 @@ class ProdukController extends Controller
 
     public function produkGuest(): Response
 {
-    $heroImages = HeroProduk::all();
+     $heroImages = HeroProduk::all();
+    $produk = Produk::all();
+
     return Inertia::render('Guest/Produk/Index', [
         'heroImages' => $heroImages,
+        'produk' => $produk
     ]);
 }
 
