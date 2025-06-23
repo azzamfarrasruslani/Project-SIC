@@ -83,10 +83,10 @@ const Navbar = () => {
                         <Dropdown
                             label="Tentang"
                             items={[
-                                { label: "Apa Itu Lahan Gambut", path: "/tentang/apa-itu", desc: "Pengertian lahan gambut" },
+                                // { label: "Apa Itu Lahan Gambut", path: "/tentang/apa-itu", desc: "Pengertian lahan gambut" },
                                 { label: "Peran & Manfaat", path: route("fungsi-gambut"), desc: "Manfaat lingkungan & sosial" },
-                                { label: "Ancaman & Konservasi", path: "/tentang/ancaman", desc: "Ancaman ekosistem & solusinya" },
-                                { label: "Potensi Ekonomi", path: "/tentang/potensi", desc: "Peluang ekonomi berkelanjutan" },
+                                // { label: "Ancaman & Konservasi", path: "/tentang/ancaman", desc: "Ancaman ekosistem & solusinya" },
+                                // { label: "Potensi Ekonomi", path: "/tentang/potensi", desc: "Peluang ekonomi berkelanjutan" },
                                 { label: "Sejarah Ekosistem", path: route("sejarah-ekosistem"), desc: "Sejarah terbentuknya gambut" }
                             ]}
                         />
@@ -98,9 +98,9 @@ const Navbar = () => {
                             items={[
                                 { label: "Komik Edukasi", path: route("komik.guest"), desc: "Belajar gambut lewat komik" },
                                 // { label: "Video Edukasi", path: "/edukasi/video", desc: "Video pembelajaran menarik" },
-                                { label: "Artikel & Berita", path:  route("artikel.guest"), desc: "Informasi terkini" },
+                                // { label: "Artikel & Berita", path:  route("artikel.guest"), desc: "Informasi terkini" },
                                 // { label: "Infografis", path: "/edukasi/infografis", desc: "Gambaran data visual" },
-                                { label: "Quiz & Tes", path: "/edukasi/quiz", desc: "Tes pengetahuan anda" }
+                                // { label: "Quiz & Tes", path: "/edukasi/quiz", desc: "Tes pengetahuan anda" }
                             ]}
                         />
                     </li>
@@ -118,9 +118,9 @@ const Navbar = () => {
                         <Dropdown
                             label="Lainnya"
                             items={[
-                                { label: "Peta Gambut", path: "/peta-gambut", desc: "Peta sebaran gambut" },
+                                // { label: "Peta Gambut", path: "/peta-gambut", desc: "Peta sebaran gambut" },
                                 // { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
-                                { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
+                                // { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
                                 // { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
                                 { label: "Kontributor", path: route("kontributor"), desc: "Tim & kolaborator" }
                             ]}
