@@ -15,9 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Set public path ke base_path agar Laravel tahu lokasi file vite berada di root/public_html
-        $this->app->bind('path.public', function() {
-            return base_path('public_html');
-        });
+        Vite::useBuildDirectory('/build'); // override dari default 'public/build' ke 'build'
 
         // Optional: konfigurasi tambahan Vite
         Vite::prefetch(concurrency: 3);
