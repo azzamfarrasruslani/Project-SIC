@@ -30,7 +30,7 @@ const Index = () => {
                 <section className="bg-gradient-to-br from-green-100 to-white py-16 px-4 sm:px-8 md:px-16 lg:px-24">
                     <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
                         <img
-                            src="/build/images/komik-illustrasi.png"
+                            src="/images/komik-illustrasi.png"
                             alt="Komik Edukatif Lahan Gambut"
                             className="w-full max-w-md mx-auto drop-shadow-lg rounded-xl"
                         />

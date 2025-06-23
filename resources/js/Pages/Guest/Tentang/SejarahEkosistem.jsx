@@ -69,7 +69,7 @@ const SejarahEkosistem = () => {
                 >
                     {/* Background lahan gambut */}
                     <img
-                        src="/build/images/Tentang/Tanah.png"
+                        src="/images/Tentang/Tanah.png"
                         alt="Lahan Gambut"
                         className="absolute inset-0 w-full h-full object-cover"
                     />

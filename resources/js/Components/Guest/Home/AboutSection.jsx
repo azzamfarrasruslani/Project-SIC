@@ -13,7 +13,7 @@ const AboutSection = React.forwardRef((props) => {
     return (
         <section className="min-h-screen bg-gradient-to-b from-lime-900 via-lime-800 to-lime-700 flex items-center justify-center relative overflow-hidden">
             <motion.img
-                src="/build/images/forest.png"
+                src="/images/forest.png"
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ scale: backgroundScale }}
             />
@@ -96,7 +96,7 @@ const AboutSection = React.forwardRef((props) => {
                     </div>
 
                     <motion.img
-                        src="/build/images/gambi.png"
+                        src="/images/gambi.png"
                         alt="Rumah Pohon"
                         className="flex-1 max-w-xs md:max-w-md lg:max-w-sm object-contain hover:scale-105 transition-transform duration-300"
                         initial={{ opacity: 0, x: 100 }}
@@ -159,7 +159,7 @@ const AboutSection = React.forwardRef((props) => {
                     {/* Gambar */}
                     <div className="flex-shrink-0">
                         <img
-                            src="/build/images/lahan-gambut.png"
+                            src="/images/lahan-gambut.png"
                             alt="Lahan Gambut"
                             className="w-80 h-80 md:w-96 md:h-96 rounded-xl object-cover border-4 border-white shadow-md"
                         />

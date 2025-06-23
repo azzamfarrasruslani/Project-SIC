@@ -19,7 +19,7 @@ export default function HeroSection() {
             className="min-h-screen bg-gradient-to-b from-lime-600 via-lime-700 to-lime-900 flex items-center justify-center relative overflow-hidden"
         >
             <motion.img
-                src="/build/images/about-us.png"
+                src="/images/about-us.png"
                 className="absolute inset-0 w-full h-full object-cover "
                 style={{ y }}
             />
@@ -31,7 +31,7 @@ export default function HeroSection() {
             /> */}
 
             <motion.img
-                src="/build/images/home-hero.png"
+                src="/images/home-hero.png"
                 alt="gambi-hero.png"
                 className="w-1/2 relative z-10"
                 initial={{ y: 0 }}

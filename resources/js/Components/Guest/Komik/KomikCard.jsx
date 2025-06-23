@@ -50,7 +50,7 @@ const KomikCard = React.forwardRef((props, ref) => {
 
                         <div className="flex justify-center mb-6">
                             <img
-                                src="/build/images/rak-buku.png"
+                                src="/images/rak-buku.png"
                                 alt="Rak Kayu"
                                 className="w-full lg:max-w-[1500px] sm:max-w-[600px] h-auto object-contain"
                             />
