@@ -7,19 +7,19 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
+        // Set public path ke base_path agar Laravel tahu lokasi file vite berada di root/public_html
+        $this->app->bind('path.public', function() {
+            return base_path('public_html');
+        });
+
+        // Optional: konfigurasi tambahan Vite
         Vite::prefetch(concurrency: 3);
     }
 }
