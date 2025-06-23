@@ -27,8 +27,6 @@ const Index = () => {
 
                 <ScrollButtons onTop={scrollToTop} onBottom={scrollToBottom} />
 
-                {/* Section Edukatif */}
-                {/* Section Edukatif - Komik Lahan Gambut untuk Anak */}
                 <section className="bg-gradient-to-br from-green-100 to-white py-16 px-4 sm:px-8 md:px-16 lg:px-24">
                     <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
                         <img
@@ -36,43 +34,39 @@ const Index = () => {
                             alt="Komik Edukatif Lahan Gambut"
                             className="w-full max-w-md mx-auto drop-shadow-lg rounded-xl"
                         />
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-extrabold text-green-700 mb-4">
-                                Komik Seru tentang Lahan Gambut! 🌱📚
+                        <div className="space-y-6 text-center md:text-left">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-green-800">
+                                Jelajahi Komik Edukatif Lahan Gambut
                             </h2>
-                            <p className="text-gray-800 text-lg mb-6">
-                                Tahukah kamu? Di dalam tanah gambut, banyak
-                                sekali makhluk lucu yang tinggal. Komik ini
-                                mengajak kamu bertualang ke dalam dunia gambut
-                                yang seru dan penuh warna!
+                            <p className="text-gray-700 text-lg">
+                                Dapatkan pemahaman mendalam tentang pentingnya
+                                pelestarian lahan gambut melalui komik yang
+                                menarik dan interaktif untuk semua kalangan.
                             </p>
-                            <ul className="space-y-4 text-base md:text-lg">
-                                <li className="flex items-start gap-3">
-                                    <span className="text-green-600 text-xl">
-                                        🧠
+                            <ul className="space-y-2 text-left">
+                                <li className="flex items-start">
+                                    <span className="text-green-600 mt-1">
+                                        ✔
                                     </span>
-                                    <p>
-                                        Belajar sambil seru-seruan dengan cerita
-                                        bergambar.
-                                    </p>
+                                    <span className="ml-2">
+                                        Ilustrasi menarik & mudah dipahami
+                                    </span>
                                 </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="text-blue-600 text-xl">
-                                        🌊
+                                <li className="flex items-start">
+                                    <span className="text-green-600 mt-1">
+                                        ✔
                                     </span>
-                                    <p>
-                                        Pahami kenapa lahan gambut penting untuk
-                                        air dan bumi.
-                                    </p>
+                                    <span className="ml-2">
+                                        Konten berbasis data ilmiah
+                                    </span>
                                 </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="text-yellow-500 text-xl">
-                                        👦👧
+                                <li className="flex items-start">
+                                    <span className="text-green-600 mt-1">
+                                        ✔
                                     </span>
-                                    <p>
-                                        Cocok untuk kamu yang suka petualangan
-                                        dan suka belajar hal baru!
-                                    </p>
+                                    <span className="ml-2">
+                                        Cocok untuk semua usia
+                                    </span>
                                 </li>
                             </ul>
                         </div>
