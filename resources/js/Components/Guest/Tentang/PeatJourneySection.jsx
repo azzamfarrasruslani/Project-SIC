@@ -53,7 +53,7 @@ const PeatJourneySection = () => {
         className="absolute left-1/2 -translate-x-1/2 w-32 md:w-48 z-20"
         style={{ top: boatY }}
       >
-        <img src="/images/boat.png" alt="Perahu" className="w-full" />
+        {/* <img src="/images/boat.png" alt="Perahu" className="w-full" /> */}
       </motion.div>
 
       {/* Konten perjalanan */}
