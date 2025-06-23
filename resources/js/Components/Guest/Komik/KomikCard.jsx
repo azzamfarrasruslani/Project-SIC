@@ -27,7 +27,7 @@ const KomikCard = React.forwardRef((props, ref) => {
                                     href={`/komik/${komik.id_komik}`}
                                     className="block transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                                 >
-                                    <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer hover:shadow-lime-600">
+                                    <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer ">
                                         <div className="relative">
                                             <img
                                                 src={`/storage/${komik.thumbnail}`}
