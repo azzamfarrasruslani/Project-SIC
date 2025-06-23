@@ -14,7 +14,7 @@ export default function Edit({ kuis }) {
         e.preventDefault();
         put(route('kuis.update', kuis.id_kuis)); // Pastikan ini mengarah ke route yang benar
     };
-
+    
     return (
         <div>
             <h1>Edit Pertanyaan</h1>
