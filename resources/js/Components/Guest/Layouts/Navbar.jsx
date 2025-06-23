@@ -70,14 +70,14 @@ const Navbar = () => {
                 </Link>
 
                 <ul className="hidden md:flex space-x-8 text-lg items-center">
-                    <li>
+                    {/* <li>
                         <Link
                             href={route("home")}
                             className={`relative ${currentRoute === "/" ? activeTextClass : normalTextClass}`}
                         >
                             Beranda
                         </Link>
-                    </li>
+                    </li> */}
 
                     <li className={normalTextClass}>
                         <Dropdown
@@ -121,7 +121,7 @@ const Navbar = () => {
                                 { label: "Peta Gambut", path: "/peta-gambut", desc: "Peta sebaran gambut" },
                                 // { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
                                 { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
-                                { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
+                                // { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
                                 { label: "Kontributor", path: route("kontributor"), desc: "Tim & kolaborator" }
                             ]}
                         />
