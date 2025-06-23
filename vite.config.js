@@ -4,7 +4,7 @@ import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-    base: '/build/', // ini penting
+    base: '/public/build/', // ini HARUS menyesuaikan path sebenarnya di domain kamu
     plugins: [
         laravel({
             input: 'resources/js/app.jsx',
@@ -13,3 +13,4 @@ export default defineConfig({
         react(),
     ],
 });
+
