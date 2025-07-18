@@ -11,19 +11,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\KomikAdminController;
-use Illuminate\Support\Facades\Storage;
-
-
-
-// Route::get('/thumbnail/{filename}', function ($filename) {
-//     $path = storage_path('app/public/' . $filename);
-
-//     if (!file_exists($path)) {
-//         abort(404);
-//     }
-
-//     return response()->file($path);
-// });
 
 
 
