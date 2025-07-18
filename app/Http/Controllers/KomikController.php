@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 
+
 class KomikController extends Controller
 {
 

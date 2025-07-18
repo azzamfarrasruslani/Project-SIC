@@ -30,16 +30,18 @@ const KomikCard = React.forwardRef((props, ref) => {
                                     <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer ">
                                         <div className="relative">
                                             <img
-                                                src={`/storage/${komik.thumbnail}`}
+                                                src={`/thumbnail/${komik.thumbnail}`}
                                                 alt={`Cover komik ${komik.judul}`}
                                                 className="w-full h-auto object-cover"
                                             />
+
                                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/30 text-white p-5">
                                                 <h2 className="text-lg font-bold">
                                                     {komik.judul}
                                                 </h2>
                                                 <p className="text-sm mt-1 line-clamp-2 italic">
-                                                    {komik.deskripsi || "Deskripsi belum tersedia."}
+                                                    {komik.deskripsi ||
+                                                        "Deskripsi belum tersedia."}
                                                 </p>
                                             </div>
                                         </div>
