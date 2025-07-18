@@ -129,9 +129,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 //=== Error routes ===
 // ===================
 
-Route::fallback(function () {
-    return Inertia::render('Errors/Error404')->toResponse(request())->setStatusCode(404);
-});
+// Route::fallback(function () {
+//     return Inertia::render('Errors/Error404')->toResponse(request())->setStatusCode(404);
+// });
 
 
 
