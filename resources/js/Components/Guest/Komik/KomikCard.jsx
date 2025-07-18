@@ -29,11 +29,7 @@ const KomikCard = React.forwardRef((props, ref) => {
                                 >
                                     <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer">
                                         <div className="relative">
-                                            <img
-                                                src={`/${komik.thumbnail}`}
-                                                alt={`Cover komik ${komik.judul}`}
-                                                className="w-full h-auto object-cover"
-                                            />
+                                            <img src="/uploads/komik/thumbnails/{{ $komik->thumbnail }}" />
 
                                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/30 text-white p-5">
                                                 <h2 className="text-lg font-bold">
