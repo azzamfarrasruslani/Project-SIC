@@ -14,7 +14,7 @@ const Show = ({ komik }) => {
                 <p className="mb-6 text-sm text-gray-500">Penulis: {komik.pengarang}</p>
 
                 <img
-                    src={`/storage/${komik.thumbnail}`}
+                    src={`/${komik.thumbnail}`} // sudah relatif dari public/
                     alt="Thumbnail"
                     className="w-full max-h-[400px] object-cover mb-8 rounded shadow"
                 />
@@ -23,7 +23,7 @@ const Show = ({ komik }) => {
                     {komik.gambar_komik.map((g, i) => (
                         <img
                             key={i}
-                            src={`/storage/${g.gambar}`}
+                            src={`/${g.gambar}`} // juga dari public/
                             alt={`Halaman ${i + 1}`}
                             className="w-full rounded shadow"
                         />

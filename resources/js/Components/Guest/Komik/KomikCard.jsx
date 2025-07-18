@@ -27,10 +27,10 @@ const KomikCard = React.forwardRef((props, ref) => {
                                     href={`/komik/${komik.id_komik}`}
                                     className="block transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                                 >
-                                    <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer ">
+                                    <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer">
                                         <div className="relative">
                                             <img
-                                                src={`/thumbnail/${komik.thumbnail}`}
+                                                src={`/${komik.thumbnail}`}
                                                 alt={`Cover komik ${komik.judul}`}
                                                 className="w-full h-auto object-cover"
                                             />
@@ -69,7 +69,7 @@ export default KomikCard;
 function chunkArray(array, size) {
     const chunked = [];
     for (let i = 0; i < array.length; i += size) {
-        chunked.push(array.slice(i + 0, i + size));
+        chunked.push(array.slice(i, i + size));
     }
     return chunked;
 }
