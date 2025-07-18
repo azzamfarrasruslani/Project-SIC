@@ -15,15 +15,15 @@ use Illuminate\Support\Facades\Storage;
 
 
 
-Route::get('/thumbnail/{filename}', function ($filename) {
-    $path = storage_path('app/public/' . $filename);
+// Route::get('/thumbnail/{filename}', function ($filename) {
+//     $path = storage_path('app/public/' . $filename);
 
-    if (!file_exists($path)) {
-        abort(404);
-    }
+//     if (!file_exists($path)) {
+//         abort(404);
+//     }
 
-    return response()->file($path);
-});
+//     return response()->file($path);
+// });
 
 
 
