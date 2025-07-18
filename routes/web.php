@@ -13,8 +13,6 @@ use Inertia\Inertia;
 use App\Http\Controllers\KomikAdminController;
 
 
-
-
 // ===================
 //=== Auth routes ===
 // ===================
