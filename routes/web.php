@@ -11,6 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\KomikAdminController;
+use Illuminate\Support\Facades\Storage;
 
 
 // ===================
@@ -119,6 +120,18 @@ Route::fallback(function () {
 });
 
 
+Route::get('/storage/{folder}/{filename}', function ($folder, $filename) {
+    $path = "public/{$folder}/{$filename}";
+
+    if (!Storage::exists($path)) {
+        abort(404);
+    }
+
+    $file = Storage::get($path);
+    $type = Storage::mimeType($path);
+
+    return response($file)->header('Content-Type', $type);
+});
 
 
 
