@@ -7,8 +7,6 @@ use App\Models\GambarKomik;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Str;
-
 
 
 class KomikController extends Controller
@@ -54,42 +52,28 @@ class KomikController extends Controller
             'pengarang' => 'required|string|max:255',
         ]);
 
-        // Buat folder jika belum ada
-        if (!file_exists(public_path('storage/thumbnails'))) {
-            mkdir(public_path('storage/thumbnails'), 0755, true);
-        }
+        $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
 
-        $thumbnailName = Str::random(20) . '.' . $request->file('thumbnail')->getClientOriginalExtension();
-        $request->file('thumbnail')->move(public_path('storage/thumbnails'), $thumbnailName);
-
+        // Simpan komik dulu
         $komik = Komik::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
-            'thumbnail' => "thumbnails/$thumbnailName",
+            'thumbnail' => $thumbnailPath,
             'pengarang' => $validated['pengarang'],
         ]);
 
-        // Upload gambar panel
+        // Simpan semua gambar panel komik
         foreach ($request->file('gambar') as $index => $file) {
-            $gambarName = Str::random(20) . '.' . $file->getClientOriginalExtension();
-
-            $dir = public_path("storage/komik/{$komik->id_komik}");
-            if (!file_exists($dir)) {
-                mkdir($dir, 0755, true);
-            }
-
-            $file->move($dir, $gambarName);
-
+            $path = $file->store("komik/{$komik->id_komik}", 'public'); // ganti id → id_komik
             GambarKomik::create([
-                'id_komik' => $komik->id_komik,
-                'gambar' => "komik/{$komik->id_komik}/$gambarName",
+                'id_komik' => $komik->id_komik, // ganti id → id_komik
+                'gambar' => $path,
                 'urutan' => $index + 1,
             ]);
         }
 
         return redirect()->route('komik.admin')->with('success', 'Komik berhasil ditambahkan.');
     }
-
 
 
 
@@ -100,50 +84,40 @@ class KomikController extends Controller
         return Inertia::render('Admin/Komik/Edit', ['komik' => $komik]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_komik)
     {
-        $komik = Komik::findOrFail($id);
-
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'pengarang' => 'required',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'gambar.*' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
-        $data = [
-            'judul' => $request->judul,
-        ];
+        $komik = Komik::findOrFail($id_komik);
+
+        $data = $request->only(['judul', 'deskripsi', 'pengarang']);
 
         if ($request->hasFile('thumbnail')) {
-            $thumbnailName = Str::random(20) . '.' . $request->file('thumbnail')->getClientOriginalExtension();
-            $request->file('thumbnail')->move(public_path('storage/thumbnails'), $thumbnailName);
-            $data['thumbnail'] = "thumbnails/$thumbnailName";
+            $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails', 'public');
         }
 
         $komik->update($data);
 
+        // Jika user upload gambar baru, tambahkan sebagai panel baru
         if ($request->hasFile('gambar')) {
             foreach ($request->file('gambar') as $index => $file) {
-                $gambarName = Str::random(20) . '.' . $file->getClientOriginalExtension();
-                $dir = public_path("storage/komik/{$komik->id_komik}");
-
-                if (!file_exists($dir)) {
-                    mkdir($dir, 0755, true);
-                }
-
-                $file->move($dir, $gambarName);
-
+                $path = $file->store("komik/{$komik->id_komik}", 'public'); // ganti id → id_komik
                 GambarKomik::create([
-                    'id_komik' => $komik->id_komik,
-                    'gambar' => "komik/{$komik->id_komik}/$gambarName",
+                    'id_komik' => $komik->id_komik, // ganti id → id_komik
+                    'gambar' => $path,
                     'urutan' => $komik->gambarKomik()->count() + $index + 1,
                 ]);
             }
         }
 
-        return redirect()->route('komik.index')->with('success', 'Komik berhasil diperbarui');
+        return redirect()->route('komik.admin')->with('success', 'Komik berhasil diperbarui.');
     }
-
 
 
     // Menghapus data komik
