@@ -13,6 +13,12 @@ return [
     |
     */
 
-    'build_directory' => 'build',
+    'hot_file' => public_path('hot'),
+    'build_directory' => 'build', // sesuaikan jika di folder lain
+    'manifest_path' => public_path('build/manifest.json'),
 
+    'dev_server' => [
+        'url' => env('VITE_DEV_SERVER_URL', 'http://localhost:5173'),
+        'enabled' => env('APP_ENV') === 'local',
+    ],
 ];
