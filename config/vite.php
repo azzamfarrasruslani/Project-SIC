@@ -1,24 +1,16 @@
 <?php
 
 return [
+    'manifest_path' => base_path('public_html/build/manifest.json'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Vite Asset Build Path
-    |--------------------------------------------------------------------------
-    |
-    | This value determines the directory where the Vite build files including
-    | the manifest file will be located. By default, Laravel assumes the
-    | build directory is located at "public/build", but you can change it.
-    |
-    */
+    'hot_file' => base_path('public_html/hot'),
 
-    'hot_file' => public_path('hot'),
-    'build_directory' => 'build', // sesuaikan jika di folder lain
-    'manifest_path' => public_path('build/manifest.json'),
+    'build_directory' => 'build',
 
-    'dev_server' => [
-        'url' => env('VITE_DEV_SERVER_URL', 'http://localhost:5173'),
-        'enabled' => env('APP_ENV') === 'local',
+    'asset_url' => env('ASSET_URL', null),
+
+    'ssr' => [
+        'enabled' => false,
+        'entry' => 'resources/js/ssr.js',
     ],
 ];
