@@ -59,8 +59,8 @@ const Navbar = () => {
 
     const logoSrc =
         currentRoute === "/"
-            ? "/images/logo/PeatlandHero-White.png"
-            : "/images/logo/PeatlandHero-Color.png";
+            ? "/images/Logo/PeatlandHero-White.png"
+            : "/images/Logo/PeatlandHero-Color.png";
 
     return (
         <nav className={`z-50 w-full py-4 px-6 ${navbarBg} transition-all duration-300`}>
