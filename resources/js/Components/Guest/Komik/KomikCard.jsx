@@ -30,7 +30,7 @@ const KomikCard = React.forwardRef((props, ref) => {
                                     <div className="relative bg-white/70 backdrop-blur-md shadow-xl rounded-2xl overflow-hidden cursor-pointer ">
                                         <div className="relative">
                                             <img
-                                                src={`/${komik.thumbnail}`}
+                                                src={`/public/${komik.thumbnail}`}
                                                 alt={`Cover komik ${komik.judul}`}
                                                 className="w-full h-auto object-cover"
                                             />
@@ -50,7 +50,7 @@ const KomikCard = React.forwardRef((props, ref) => {
 
                         <div className="flex justify-center mb-6">
                             <img
-                                src="/images/rak-buku.png"
+                                src="/public/images/rak-buku.png"
                                 alt="Rak Kayu"
                                 className="w-full lg:max-w-[1500px] sm:max-w-[600px] h-auto object-contain"
                             />

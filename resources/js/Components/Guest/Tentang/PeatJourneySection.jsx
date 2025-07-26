@@ -67,11 +67,11 @@ const PeatJourneySection = () => {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <img
+            {/* <img
               src={item.image}
               alt={`Ilustrasi fungsi ${idx + 1}`}
               className="w-64 h-40 object-contain"
-            />
+            /> */}
             <p className="text-xl font-semibold">{item.text}</p>
           </motion.div>
         ))}
