@@ -40,7 +40,7 @@ const PeatJourneySection = () => {
     >
       {/* Background sungai */}
       <img
-        src="/images/sungai.png"
+        src="/public/images/sungai.png"
         alt="Sungai"
         className="absolute top-0 left-0 w-full h-full object-cover"
       />

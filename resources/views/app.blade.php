@@ -8,7 +8,7 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="icon" href="{{ asset('build/images/Logo/SIC Logo Vertical - White.png') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('/public/images/Logo/PeatlandHero-White.png') }}" type="image/x-icon">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

@@ -69,7 +69,7 @@ const KonservasiGambut = () => {
                 >
                     {/* Background konservasi gambut */}
                     <img
-                        src="/build/images/Tentang/KonservasiGambut.png"
+                        src="/public/images/Tentang/KonservasiGambut.png"
                         alt="Konservasi Gambut"
                         className="absolute inset-0 w-full h-full object-cover"
                     />

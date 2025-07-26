@@ -64,7 +64,7 @@ const PengertianGambut = () => {
                 >
                     {/* Background */}
                     <img
-                        src="/images/Tentang/GambutLayer.png"
+                        src="/public/images/Tentang/GambutLayer.png"
                         alt="Lapisan Gambut"
                         className="absolute inset-0 w-full h-full object-cover"
                     />

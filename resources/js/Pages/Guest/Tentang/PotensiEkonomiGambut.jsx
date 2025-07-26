@@ -64,7 +64,7 @@ const PotensiEkonomiGambut = () => {
                 >
                     {/* Background visual */}
                     <img
-                        src="/images/Tentang/PotensiEkonomi.png"
+                        src="/public/images/Tentang/PotensiEkonomi.png"
                         alt="Potensi Ekonomi Gambut"
                         className="absolute inset-0 w-full h-full object-cover"
                     />

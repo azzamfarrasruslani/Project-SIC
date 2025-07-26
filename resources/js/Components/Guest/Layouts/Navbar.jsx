@@ -155,11 +155,11 @@ const Navbar = () => {
                                 // { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
                                 // { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
                                 // { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
-                                {
-                                    label: "Kontributor",
-                                    path: route("kontributor"),
-                                    desc: "Tim & kolaborator",
-                                },
+                                // {
+                                //     label: "Kontributor",
+                                //     path: route("kontributor"),
+                                //     desc: "Tim & kolaborator",
+                                // },
                             ]}
                         />
                     </li>

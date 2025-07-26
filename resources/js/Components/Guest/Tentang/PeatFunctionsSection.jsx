@@ -7,7 +7,7 @@ const peatFunctions = [
     id: 1,
     icon: "🌍",
     title: "Menyerap Karbon",
-    image: "/images/Fungsi-Gambut/1.png",
+    image: "/public/images/Fungsi-Gambut/1.png",
     description:
       "Lahan gambut menyimpan hingga dua kali lebih banyak karbon dibandingkan hutan lainnya, menjadikannya benteng alami dalam melawan krisis iklim global."
   },
@@ -15,7 +15,7 @@ const peatFunctions = [
     id: 2,
     icon: "💧",
     title: "Menjaga Air Tanah",
-    image: "/images/Fungsi-Gambut/2.png",
+    image: "/public/images/Fungsi-Gambut/2.png",
     description:
       "Seperti spons raksasa, gambut menyerap dan melepaskan air secara perlahan, menjaga keseimbangan air tanah dan mengurangi risiko banjir serta kekeringan."
   },
@@ -23,7 +23,7 @@ const peatFunctions = [
     id: 3,
     icon: "🐦",
     title: "Habitat Keanekaragaman Hayati",
-    image: "/images/Fungsi-Gambut/3.png",
+    image: "/public/images/Fungsi-Gambut/3.png",
     description:
       "Gambut menjadi rumah bagi spesies langka dan endemik, termasuk burung air, tumbuhan karnivora, dan mamalia khas rawa tropis."
   }
