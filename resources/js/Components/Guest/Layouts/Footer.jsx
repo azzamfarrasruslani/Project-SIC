@@ -7,7 +7,7 @@ const Footer = () => {
                 {/* Logo dan Tentang Gambi */}
                 <div className="flex flex-col items-center md:items-start">
                     <img
-                        src="/images/logo/SIC Logo Vertical - White.png"
+                        src="/public/images/logo/SIC Logo Vertical - White.png"
                         alt="Gambi Logo"
                         className="h-full w-20 mb-4"
                     />
@@ -94,7 +94,7 @@ const Footer = () => {
             </div>
 
             {/* Ikon Sosial */}
-            <div className="mt-10 flex justify-center gap-4">
+            {/* <div className="mt-10 flex justify-center gap-4">
                 <Icon
                     name="facebook"
                     className="w-10 rounded-full bg-white py-2.5 text-xl text-lime-800 hover:bg-lime-600 hover:text-white transition duration-300 ease-in-out shadow-md"
@@ -107,7 +107,7 @@ const Footer = () => {
                     name="youtube"
                     className="w-10 rounded-full bg-white py-2.5 text-xl text-lime-800 hover:bg-lime-600 hover:text-white transition duration-300 ease-in-out shadow-md"
                 />
-            </div>
+            </div> */}
 
             {/* Copyright */}
             <div className="mt-10 border-t border-lime-700 pt-4 text-center text-sm text-lime-300">

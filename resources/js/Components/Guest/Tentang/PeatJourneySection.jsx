@@ -4,23 +4,23 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const peatFunctions = [
   {
     text: "🌍 Lahan gambut menyimpan hingga dua kali lebih banyak karbon dibandingkan hutan lainnya.",
-    image: "/images/Fungsi-Gambut/1.png",
+    image: "/public/images/Fungsi-Gambut/1.png",
   },
   {
     text: "💧 Lahan gambut berperan seperti spons raksasa, menyerap dan menyimpan air, mencegah banjir dan kekeringan.",
-    image: "/images/Fungsi-Gambut/2.png",
+    image: "/public/images/Fungsi-Gambut/2.png",
   },
   {
     text: "🦉 Lahan gambut merupakan habitat penting bagi flora dan fauna langka yang tidak ditemukan di tempat lain.",
-    image: "/images/Fungsi-Gambut/3.png",
+    image: "/public/images/Fungsi-Gambut/3.png",
   },
   {
     text: "🔥 Jika dikeringkan, lahan gambut sangat mudah terbakar dan mengeluarkan asap berbahaya bagi kesehatan.",
-    image: "/images/Fungsi-Gambut/4.png",
+    image: "/public/images/Fungsi-Gambut/4.png",
   },
   {
     text: "🌱 Indonesia memiliki sekitar 36% dari total lahan gambut tropis dunia, menjadikannya benteng ekologis penting.",
-    image: "/images/Fungsi-Gambut/5.png",
+    image: "/public/images/Fungsi-Gambut/5.png",
   },
 ];
 
@@ -53,7 +53,7 @@ const PeatJourneySection = () => {
         className="absolute left-1/2 -translate-x-1/2 w-32 md:w-48 z-20"
         style={{ top: boatY }}
       >
-        {/* <img src="/images/boat.png" alt="Perahu" className="w-full" /> */}
+        <img src="/public/images/boat.png" alt="Perahu" className="w-full" />
       </motion.div>
 
       {/* Konten perjalanan */}

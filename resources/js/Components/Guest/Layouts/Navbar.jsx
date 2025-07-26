@@ -147,22 +147,22 @@ const Navbar = () => {
                         </Link>
                     </li>
 
-                    <li className={normalTextClass}>
+                    {/* <li className={normalTextClass}>
                         <Dropdown
                             label="Lainnya"
                             items={[
-                                // { label: "Peta Gambut", path: "/peta-gambut", desc: "Peta sebaran gambut" },
-                                // { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
-                                // { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
-                                // { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
-                                // {
-                                //     label: "Kontributor",
-                                //     path: route("kontributor"),
-                                //     desc: "Tim & kolaborator",
-                                // },
+                                { label: "Peta Gambut", path: "/peta-gambut", desc: "Peta sebaran gambut" },
+                                { label: "Penelitian", path: "/penelitian", desc: "Hasil studi ilmiah" },
+                                { label: "Kegiatan", path: "/kegiatan", desc: "Event & aktivitas" },
+                                { label: "Komunitas", path: "/komunitas", desc: "Jaringan pemerhati gambut" },
+                                {
+                                    label: "Kontributor",
+                                    path: route("kontributor"),
+                                    desc: "Tim & kolaborator",
+                                },
                             ]}
                         />
-                    </li>
+                    </li> */}
                 </ul>
 
                 <div className="flex items-center space-x-4">
