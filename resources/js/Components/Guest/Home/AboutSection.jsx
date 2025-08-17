@@ -1,5 +1,8 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { router } from "@inertiajs/react";
+import { route } from "ziggy-js";
+
 
 const AboutSection = React.forwardRef((props) => {
     const sectionRef = useRef(null);
@@ -67,7 +70,7 @@ const AboutSection = React.forwardRef((props) => {
                         </motion.p>
 
                         <div className="flex flex-col md:flex-row gap-4 mt-4">
-                            <motion.button
+                            {/* <motion.button
                                 className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-6 py-3 rounded-full shadow-lg transition hover:scale-105"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -80,14 +83,13 @@ const AboutSection = React.forwardRef((props) => {
                                 }}
                             >
                                 Lanjutkan Petualangan 🌳
-                            </motion.button>
-
+                            </motion.button> */}
                             <motion.button
                                 className="bg-white text-lime-700 font-semibold px-6 py-3 rounded-full shadow-lg transition hover:scale-105 border border-lime-300"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() =>
-                                    alert("Segera hadir: Temui Gambi! 🎉")
+                                    router.visit(route("komik.guest"))
                                 }
                             >
                                 Koleksi Gambi! 🐸
