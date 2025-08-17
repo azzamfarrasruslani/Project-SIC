@@ -20,7 +20,7 @@ export default function HeroSection() {
         >
             {/* Gambar background parallax */}
             <motion.img
-                src="/images/komik-hero2.png"
+                src="/public/images/komik-hero2.png"
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ y }}
             />
@@ -28,7 +28,7 @@ export default function HeroSection() {
             <div className="flex flex-col items-center justify-center relative z-10 px-4 md:px-12 py-24 text-black max-w-6xl w-full ">
                 {/* Gambar karakter animasi naik-turun */}
                 <motion.img
-                    src="/images/koleksi-gambi.png"
+                    src="/public/images/koleksi-gambi.png"
                     alt="gambi-hero.png"
                     className="mt-28 relative z-10"
                     initial={{ y: 0 }}
