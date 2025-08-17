@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\HeroProduk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Storage;
 
 class HeroProdukController extends Controller
 {
@@ -20,7 +20,6 @@ class HeroProdukController extends Controller
     public function create()
     {
         return Inertia::render('Admin/Produk/Hero/Create');
-
     }
 
     public function store(Request $request)
@@ -33,10 +32,14 @@ class HeroProdukController extends Controller
             return back()->with('error', 'Maksimal 5 gambar hero diperbolehkan.');
         }
 
-        $path = $request->file('gambar')->store('hero_produk', 'public');
+        $gambar = $request->file('gambar');
+        $gambarName = time() . '_' . $gambar->getClientOriginalName();
+        $gambarDir = 'uploads/hero';
+        $gambar->move(public_path($gambarDir), $gambarName);
+        $gambarPath = "$gambarDir/$gambarName";
 
         HeroProduk::create([
-            'gambar' => $path
+            'gambar' => $gambarPath
         ]);
 
         return redirect()->route('produk.hero')->with('success', 'Hero berhasil ditambahkan.');
@@ -50,13 +53,19 @@ class HeroProdukController extends Controller
 
         $hero = HeroProduk::findOrFail($id);
 
-        if ($hero->gambar && Storage::disk('public')->exists($hero->gambar)) {
-            Storage::disk('public')->delete($hero->gambar);
+        // Hapus gambar lama jika ada
+        if ($hero->gambar && File::exists(public_path($hero->gambar))) {
+            File::delete(public_path($hero->gambar));
         }
 
-        $path = $request->file('gambar')->store('hero_produk', 'public');
+        // Upload gambar baru
+        $gambar = $request->file('gambar');
+        $gambarName = time() . '_' . $gambar->getClientOriginalName();
+        $gambarDir = 'uploads/hero';
+        $gambar->move(public_path($gambarDir), $gambarName);
+        $gambarPath = "$gambarDir/$gambarName";
 
-        $hero->update(['gambar' => $path]);
+        $hero->update(['gambar' => $gambarPath]);
 
         return redirect()->route('produk.hero')->with('success', 'Hero berhasil diperbarui.');
     }
@@ -65,8 +74,9 @@ class HeroProdukController extends Controller
     {
         $hero = HeroProduk::findOrFail($id);
 
-        if ($hero->gambar && Storage::disk('public')->exists($hero->gambar)) {
-            Storage::disk('public')->delete($hero->gambar);
+        // Hapus gambar dari folder jika ada
+        if ($hero->gambar && File::exists(public_path($hero->gambar))) {
+            File::delete(public_path($hero->gambar));
         }
 
         $hero->delete();
