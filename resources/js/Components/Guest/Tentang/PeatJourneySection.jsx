@@ -61,18 +61,25 @@ const PeatJourneySection = () => {
         {peatFunctions.map((item, idx) => (
           <motion.div
             key={idx}
-            className="bg-white/20 backdrop-blur-md p-6 rounded-xl max-w-2xl flex flex-col items-center space-y-4"
+            className="bg-white/20 backdrop-blur-md p-6 rounded-xl max-w-4xl w-full flex flex-row items-center justify-center gap-6 text-left"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            {/* <img
-              src={item.image}
-              alt={`Ilustrasi fungsi ${idx + 1}`}
-              className="w-64 h-40 object-contain"
-            /> */}
-            <p className="text-xl font-semibold">{item.text}</p>
+            {/* Gambar karakter di kiri */}
+            <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
+              <img
+                src={item.image}
+                alt={`Ilustrasi fungsi ${idx + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            {/* Teks di kanan */}
+            <div className="flex-1 text-white text-lg md:text-xl font-semibold">
+              {item.text}
+            </div>
           </motion.div>
         ))}
       </div>
