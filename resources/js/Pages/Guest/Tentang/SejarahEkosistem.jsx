@@ -9,25 +9,25 @@ const steps = [
         title: "🌱 Tumbuhan Tumbuh Subur",
         description:
             "Di daerah rawa basah, tanaman tumbuh subur berkat curah hujan tinggi 🌧️ dan sinar matahari yang melimpah ☀️.",
-        image: "/images/Sejarah/1.png",
+        image: "/public/images/Sejarah/1.png",
     },
     {
         title: "🍂 Tumbuhan Mati dan Mengendap",
         description:
             "Daun, ranting, dan akar yang mati menumpuk di permukaan tanah setiap tahun 🪵.",
-        image: "/images/Sejarah/2.png",
+        image: "/public/images/Sejarah/2.png",
     },
     {
         title: "💧 Kondisi Jenuh Air",
         description:
             "Tanah yang selalu tergenang air kekurangan oksigen 🫁, sehingga sisa tumbuhan sulit terurai sempurna 🧬.",
-        image: "/images/Sejarah/3.png",
+        image: "/public/images/Sejarah/3.png",
     },
     {
         title: "🪱 Penumpukan Bahan Organik",
         description:
             "Sisa tumbuhan yang tidak terurai menumpuk selama ratusan hingga ribuan tahun ⏳.",
-        image: "/images/Sejarah/4.png",
+        image: "/public/images/Sejarah/4.png",
     },
 ];
 
@@ -63,7 +63,7 @@ const SejarahEkosistem = () => {
                 >
                     {/* Background lahan gambut */}
                     <img
-                        src="/images/Tentang/Tanah.png"
+                        src="/public/images/Tentang/Tanah.png"
                         alt="Lahan Gambut"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
