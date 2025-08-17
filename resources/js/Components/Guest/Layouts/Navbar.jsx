@@ -98,7 +98,7 @@ const Navbar = () => {
                             items={[
                                 { label: "Komik Edukasi", path: route("komik.guest"), desc: "Belajar gambut lewat komik" },
                                 // { label: "Video Edukasi", path: "/edukasi/video", desc: "Video pembelajaran menarik" },
-                                // { label: "Artikel & Berita", path:  route("artikel.guest"), desc: "Informasi terkini" },
+                                { label: "Artikel & Berita", path:  route("artikel.guest"), desc: "Informasi terkini" },
                                 // { label: "Infografis", path: "/edukasi/infografis", desc: "Gambaran data visual" },
                                 // { label: "Quiz & Tes", path: "/edukasi/quiz", desc: "Tes pengetahuan anda" }
                             ]}
