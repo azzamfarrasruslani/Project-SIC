@@ -9,7 +9,6 @@ use Inertia\Inertia;
 
 class ArtikelController extends Controller
 {
-    // Halaman untuk tamu (pengunjung)
     public function artikelGuest()
     {
         $artikels = Artikel::where('status', 'publish')->latest()->get();
@@ -18,7 +17,6 @@ class ArtikelController extends Controller
         ]);
     }
 
-    // Halaman admin
     public function artikelAdmin()
     {
         $artikels = Artikel::latest()->get();
@@ -26,7 +24,6 @@ class ArtikelController extends Controller
             'artikels' => $artikels,
         ]);
     }
-
 
     public function show($id)
     {
@@ -37,14 +34,11 @@ class ArtikelController extends Controller
         ]);
     }
 
-
-    // Form create
     public function create()
     {
         return Inertia::render('Admin/Artikel/Create');
     }
 
-    // Simpan data baru
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -59,7 +53,11 @@ class ArtikelController extends Controller
         // Simpan gambar jika ada
         $gambarPath = null;
         if ($request->hasFile('gambar')) {
-            $gambarPath = $request->file('gambar')->store('artikels', 'public');
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $tujuan = 'uploads/artikels';
+            $file->move(public_path($tujuan), $namaFile);
+            $gambarPath = "$tujuan/$namaFile";
         }
 
         Artikel::create([
@@ -75,7 +73,6 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.admin')->with('success', 'Artikel berhasil ditambahkan.');
     }
 
-    // Form edit
     public function edit($id_artikel)
     {
         $artikel = Artikel::findOrFail($id_artikel);
@@ -84,7 +81,6 @@ class ArtikelController extends Controller
         ]);
     }
 
-    // Update data artikel
     public function update(Request $request, $id_artikel)
     {
         $validated = $request->validate([
@@ -108,7 +104,11 @@ class ArtikelController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('artikels', 'public');
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $tujuan = 'uploads/artikels';
+            $file->move(public_path($tujuan), $namaFile);
+            $data['gambar'] = "$tujuan/$namaFile";
         }
 
         $artikel->update($data);
@@ -116,7 +116,6 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.admin')->with('success', 'Artikel berhasil diperbarui.');
     }
 
-    // Hapus artikel
     public function destroy($id_artikel)
     {
         $artikel = Artikel::findOrFail($id_artikel);

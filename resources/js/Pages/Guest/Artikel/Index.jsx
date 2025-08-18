@@ -76,7 +76,7 @@ export default function Index({ artikels }) {
                 {/* Header */}
                 <div className="relative bg-green-800">
                     <img
-                        src="/images/artikel.png"
+                        src="public/images/artikel.png"
                         alt="Lahan Gambut"
                         className="w-full h-96 object-cover opacity-30"
                     />
