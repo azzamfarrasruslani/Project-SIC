@@ -131,7 +131,7 @@ const Navbar = () => {
                 <div className="flex items-center space-x-4">
                     <Link
                         href={route("login")}
-                        className="bg-gradient-to-r from-lime-500 to-lime-600 hover:from-lime-600 hover:to-lime-700 text-white px-5 py-2 rounded-lg text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+                        className="bg-gradient-to-r from-lime-700 to-lime-900 hover:from-lime-600 hover:to-lime-700 text-white px-5 py-2 rounded-lg text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-300"
                     >
                         Login
                     </Link>

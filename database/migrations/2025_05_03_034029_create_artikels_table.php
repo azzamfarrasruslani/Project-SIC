@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,10 +13,15 @@ return new class extends Migration
         Schema::create('artikels', function (Blueprint $table) {
             $table->id('id_artikel');
             $table->string('judul');
-            $table->text('deskripsi');
-            $table->text('gambar')->nullable(); // bisa null jika tidak wajib
+            $table->string('slug')->unique();
+            $table->text('isi');
+            $table->text('gambar')->nullable();
+            $table->string('penulis')->nullable();
+            $table->enum('status', ['draft', 'publish'])->default('draft');
+            $table->string('kategori')->nullable(); // nama kategori langsung
             $table->timestamps();
         });
+
     }
 
     /**

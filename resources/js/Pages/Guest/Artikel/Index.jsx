@@ -1,96 +1,62 @@
 import React, { useRef, useState } from "react";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import ScrollButtons from "@/Components/Guest/Home/ScrollButtons";
-import { Search, BookOpen, Leaf, ShieldCheck, Users, Flame } from "lucide-react";
+import {
+    Search,
+    BookOpen,
+    Leaf,
+    ShieldCheck,
+    Users,
+    Flame,
+} from "lucide-react";
 
-// Card Komponen
-const ArtikelCard = ({ title, image, content, date }) => {
+const ArtikelCard = ({ id, title, image, content, date }) => {
     return (
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition-transform duration-300 group">
-            <div className="overflow-hidden">
-                <img
-                    src={image}
-                    alt={title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+        <Link href={route("artikel.show", id)}>
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-[1.03] transition-transform duration-300 group">
+                <div className="overflow-hidden">
+                    <img
+                        src={image}
+                        alt={title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div className="p-5">
+                    <h3 className="text-xl font-bold mb-2 text-green-700">{title}</h3>
+                    <p className="text-gray-500 text-xs mb-2">{date}</p>
+                    <p className="text-gray-600 text-sm line-clamp-3">{content}</p>
+                </div>
             </div>
-            <div className="p-5">
-                <h3 className="text-xl font-bold mb-2 text-green-700">{title}</h3>
-                <p className="text-gray-500 text-xs mb-2">{date}</p>
-                <p className="text-gray-600 text-sm">{content}</p>
-            </div>
-        </div>
+        </Link>
     );
 };
 
-// Data Artikel
-const allArticles = [
-    {
-        title: "Apa Itu Lahan Gambut?",
-        image: "https://images.unsplash.com/photo-1581574203283-92e53b544090",
-        content: "Lahan gambut adalah jenis lahan basah...",
-        category: "Umum",
-        date: "2024-06-01"
-    },
-    {
-        title: "Manfaat Lahan Gambut",
-        image: "https://images.unsplash.com/photo-1502784444185-48010b87c7e1",
-        content: "Lahan gambut menjaga keseimbangan ekosistem...",
-        category: "Manfaat",
-        date: "2024-06-03"
-    },
-    {
-        title: "Ancaman Terhadap Gambut",
-        image: "https://images.unsplash.com/photo-1581574203283-92e53b544090",
-        content: "Pembukaan lahan, kebakaran hutan...",
-        category: "Ancaman",
-        date: "2024-06-05"
-    },
-    {
-        title: "Pelestarian Lahan Gambut",
-        image: "https://images.unsplash.com/photo-1503437313881-503a91226402",
-        content: "Upaya konservasi meliputi rewetting...",
-        category: "Pelestarian",
-        date: "2024-06-07"
-    },
-    {
-        title: "Keanekaragaman Hayati",
-        image: "https://images.unsplash.com/photo-1613480372588-9f648b3a6b9b",
-        content: "Lahan gambut menjadi rumah bagi spesies langka...",
-        category: "Biodiversity",
-        date: "2024-06-09"
-    },
-    {
-        title: "Peran Masyarakat",
-        image: "https://images.unsplash.com/photo-1579370318448-19b7ef50525b",
-        content: "Masyarakat lokal berperan penting...",
-        category: "Masyarakat",
-        date: "2024-06-11"
-    },
-];
-
-// Data Kategori
-const categories = [
-    { name: "Semua", icon: <BookOpen size={16} /> },
-    { name: "Umum", icon: <BookOpen size={16} /> },
-    { name: "Manfaat", icon: <Leaf size={16} /> },
-    { name: "Ancaman", icon: <ShieldCheck size={16} /> },
-    { name: "Pelestarian", icon: <Leaf size={16} /> },
-    { name: "Biodiversity", icon: <Users size={16} /> },
-    { name: "Masyarakat", icon: <Users size={16} /> },
-];
-
-const Index = () => {
+export default function Index({ artikels }) {
     const bottomRef = useRef(null);
     const [search, setSearch] = useState("");
     const [activeCategory, setActiveCategory] = useState("Semua");
 
-    const filteredArticles = allArticles.filter((artikel) => {
-        const matchesCategory = activeCategory === "Semua" || artikel.category === activeCategory;
+    const uniqueCategories = [
+        "Semua",
+        ...Array.from(new Set(artikels.map((a) => a.kategori))).filter(Boolean),
+    ];
+
+    const iconMap = {
+        Umum: <BookOpen size={16} />,
+        Manfaat: <Leaf size={16} />,
+        Ancaman: <ShieldCheck size={16} />,
+        Pelestarian: <Leaf size={16} />,
+        Biodiversity: <Users size={16} />,
+        Masyarakat: <Users size={16} />,
+    };
+
+    const filteredArticles = artikels.filter((artikel) => {
+        const matchesCategory =
+            activeCategory === "Semua" || artikel.kategori === activeCategory;
         const matchesSearch =
-            artikel.title.toLowerCase().includes(search.toLowerCase()) ||
-            artikel.content.toLowerCase().includes(search.toLowerCase());
+            artikel.judul.toLowerCase().includes(search.toLowerCase()) ||
+            artikel.isi.toLowerCase().includes(search.toLowerCase());
         return matchesCategory && matchesSearch;
     });
 
@@ -106,21 +72,22 @@ const Index = () => {
         <GuestLayout>
             <Head title="Artikel Lahan Gambut" />
 
-            <div className="">
+            <div>
                 {/* Header */}
                 <div className="relative bg-green-800">
                     <img
-                        src="https://images.unsplash.com/photo-1503437313881-503a91226402"
+                        src="/images/artikel.png"
                         alt="Lahan Gambut"
                         className="w-full h-96 object-cover opacity-30"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-green-900 to-green-700 opacity-70"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-900 to-green-700 opacity-10"></div>
                     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
                         <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">
-                            Artikel Lahan Gambut
+                            Informasi & Edukasi Lahan Gambut
                         </h1>
                         <p className="text-white text-lg max-w-2xl">
-                            Mari pelajari pentingnya menjaga lahan gambut untuk masa depan bumi yang lebih baik.
+                            Temukan wawasan mendalam tentang pentingnya pelestarian
+                            lahan gambut demi keberlanjutan lingkungan dan masa depan bumi.
                         </p>
                     </div>
                 </div>
@@ -129,19 +96,18 @@ const Index = () => {
                 <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                         <div className="flex flex-wrap gap-3">
-                            {categories.map((cat) => (
+                            {uniqueCategories.map((cat) => (
                                 <button
-                                    key={cat.name}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition
-                                    ${
-                                        activeCategory === cat.name
+                                    key={cat}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition ${
+                                        activeCategory === cat
                                             ? "bg-green-700 text-white border-green-700"
                                             : "border-gray-300 text-gray-700 hover:bg-green-100"
                                     }`}
-                                    onClick={() => setActiveCategory(cat.name)}
+                                    onClick={() => setActiveCategory(cat)}
                                 >
-                                    {cat.icon}
-                                    {cat.name}
+                                    {iconMap[cat] ?? <BookOpen size={16} />}
+                                    {cat}
                                 </button>
                             ))}
                         </div>
@@ -166,13 +132,14 @@ const Index = () => {
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {allArticles.slice(0, 2).map((artikel, idx) => (
+                        {artikels.slice(0, 2).map((artikel) => (
                             <ArtikelCard
-                                key={idx}
-                                title={artikel.title}
-                                image={artikel.image}
-                                content={artikel.content}
-                                date={artikel.date}
+                                key={artikel.id_artikel}
+                                id={artikel.id_artikel}
+                                title={artikel.judul}
+                                image={`/storage/${artikel.gambar}`}
+                                content={artikel.isi}
+                                date={new Date(artikel.created_at).toLocaleDateString("id-ID")}
                             />
                         ))}
                     </div>
@@ -182,13 +149,14 @@ const Index = () => {
                 <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {filteredArticles.length > 0 ? (
-                            filteredArticles.map((artikel, idx) => (
+                            filteredArticles.map((artikel) => (
                                 <ArtikelCard
-                                    key={idx}
-                                    title={artikel.title}
-                                    image={artikel.image}
-                                    content={artikel.content}
-                                    date={artikel.date}
+                                    key={artikel.id_artikel}
+                                    id={artikel.id_artikel}
+                                    title={artikel.judul}
+                                    image={`/storage/${artikel.gambar}`}
+                                    content={artikel.isi}
+                                    date={new Date(artikel.created_at).toLocaleDateString("id-ID")}
                                 />
                             ))
                         ) : (
@@ -197,7 +165,6 @@ const Index = () => {
                             </div>
                         )}
                     </div>
-
                     <div ref={bottomRef}></div>
                 </div>
 
@@ -205,6 +172,4 @@ const Index = () => {
             </div>
         </GuestLayout>
     );
-};
-
-export default Index;
+}

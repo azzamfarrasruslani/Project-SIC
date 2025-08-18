@@ -47,6 +47,7 @@ Route::get('/produk', [ProdukController::class, 'produkGuest'])->name('produk.gu
 
 // =Artikel route=
 Route::get('/artikel', [ArtikelController::class, 'artikelGuest'])->name('artikel.guest');
+Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
 
 // =Tentang route=
 Route::get('/sejarah-ekosistem', function () {
@@ -61,7 +62,6 @@ Route::get('/fungsi-gambut', function () {
 Route::get('/kontributor', function () {
     return Inertia::render('Guest/Lainnya/Kontributor');
 })->name('kontributor');
-
 
 
 
@@ -105,8 +105,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::put('/kuis/{id}', [KuisController::class, 'update'])->name('kuis.update');
     Route::delete('/kuis/{id}', [KuisController::class, 'destroy'])->name('kuis.destroy');
 
-    // Route::delete('/artikel-admin/{id_artikel}', [ArtikelController::class, 'destroy'])->name('artikel-admin.destroy');
-    // Route::resource('/artikel-admin', ArtikelController::class);
+    // =Artikel route=
+    Route::get('/artikel', [ArtikelController::class, 'artikelAdmin'])->name('artikel.admin');
+    Route::get('/artikel/create', [ArtikelController::class, 'create'])->name('artikel.create');
+    Route::post('/artikel', [ArtikelController::class, 'store'])->name('artikel.store');
+    Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
+    Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
+    Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
+
 });
 
 
