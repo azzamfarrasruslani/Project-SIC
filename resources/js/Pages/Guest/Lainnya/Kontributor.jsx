@@ -2,90 +2,91 @@ import React, { useRef } from "react";
 import { Head } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import ScrollButtons from "@/Components/Guest/Home/ScrollButtons";
-import { Github, Linkedin, Mail } from "lucide-react";
 
-const contributors = [
-    {
-        name: "Azzam Farras",
-        role: "Pengembang Utama",
-        image: "https://i.pravatar.cc/150?img=3",
-        description: "Bertanggung jawab dalam pengembangan sistem edukasi lahan gambut berbasis web.",
-        github: "https://github.com/azzam",
-        linkedin: "https://linkedin.com/in/azzam",
-        email: "azzam@example.com",
+// Tambahkan logo untuk setiap tim
+const teams = {
+    "Tim Gaty (Developer)": {
+        logo: "/images/kontributor.png", // ← ganti path sesuai gambar asli
+        members: [
+            { name: "Azzam Farras" },
+            { name: "Dewi Lestari" },
+        ],
     },
-    {
-        name: "Dewi Lestari",
-        role: "Penulis Konten",
-        image: "https://i.pravatar.cc/150?img=5",
-        description: "Menyusun materi edukatif seputar ekosistem lahan gambut dan konservasi.",
-        github: "",
-        linkedin: "https://linkedin.com/in/dewi",
-        email: "dewi@example.com",
+    "Tim Secawan (Perancang Komik Gami)": {
+        logo: "/images/logo-secawan.png", // ← ganti path sesuai gambar asli
+        members: [
+            { name: "Budi Santoso" },
+        ],
     },
-    {
-        name: "Budi Santoso",
-        role: "Desainer UI/UX",
-        image: "https://i.pravatar.cc/150?img=8",
-        description: "Merancang tampilan dan pengalaman pengguna yang ramah serta informatif.",
-        github: "https://github.com/budi",
-        linkedin: "https://linkedin.com/in/budi",
-        email: "budi@example.com",
-    }
-];
+};
 
 const Kontributor = () => {
     const bottomRef = useRef(null);
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    const scrollToBottom = () => {
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    const scrollToBottom = () =>
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
 
     return (
         <GuestLayout>
-            <div className="mt-0">
-                <Head title="Kontributor" />
-                <ScrollButtons onTop={scrollToTop} onBottom={scrollToBottom} />
+            <Head title="Kontributor" />
+            <ScrollButtons onTop={scrollToTop} onBottom={scrollToBottom} />
 
-                <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-3xl font-extrabold text-green-700 mb-10 text-center">Tim Kontributor</h1>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {contributors.map((person, index) => (
-                            <div key={index} className="bg-white rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300">
-                                <img
-                                    src={person.image}
-                                    alt={person.name}
-                                    className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                                />
-                                <h2 className="text-xl font-bold text-green-800">{person.name}</h2>
-                                <p className="text-green-600 mb-2">{person.role}</p>
-                                <p className="text-gray-600 text-sm mb-4">{person.description}</p>
-                                <div className="flex justify-center gap-4 text-green-700">
-                                    {person.github && (
-                                        <a href={person.github} target="_blank" rel="noopener noreferrer">
-                                            <Github />
-                                        </a>
-                                    )}
-                                    {person.linkedin && (
-                                        <a href={person.linkedin} target="_blank" rel="noopener noreferrer">
-                                            <Linkedin />
-                                        </a>
-                                    )}
-                                    <a href={`mailto:${person.email}`}>
-                                        <Mail />
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div ref={bottomRef} className="mt-10"></div>
+            {/* Header Hero */}
+            <div className="relative h-[320px] mb-16">
+                <img
+                    src="/images/kontributor.png"
+                    alt="Header Kontributor"
+                    className="w-full h-full object-cover brightness-75 rounded-b-[40px]"
+                />
+                <div className="absolute inset-0 bg-lime-800/50 rounded-b-[40px] z-10"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-center z-20">
+                    <h1 className="text-white text-4xl md:text-5xl font-extrabold drop-shadow-lg">
+                        Tim Kontributor
+                    </h1>
                 </div>
+            </div>
+
+            {/* Konten Kontributor */}
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                {Object.entries(teams).map(([teamName, teamData], idx) => (
+                    <section key={idx} className="mb-20">
+                        {/* Logo Tim */}
+                        <div className="flex justify-center mb-6">
+                            <img
+                                src={teamData.logo}
+                                alt={`Logo ${teamName}`}
+                                className="h-24 object-contain"
+                            />
+                        </div>
+
+                        {/* Nama Tim */}
+                        <h2 className="text-2xl font-bold text-lime-800 mb-6 border-l-4 pl-4 border-lime-900 text-center md:text-left">
+                            {teamName}
+                        </h2>
+
+                        {/* Anggota Tim */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                            {teamData.members.map((person, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition duration-300 transform hover:scale-105"
+                                >
+                                    <div className="flex items-center space-x-4">
+                                        <div className="w-12 h-12 bg-lime-100 rounded-full flex items-center justify-center text-lime-700 font-bold text-lg">
+                                            {person.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <p className="text-lg font-semibold text-gray-800">{person.name}</p>
+                                            <p className="text-sm text-gray-500">Anggota</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                ))}
+                <div ref={bottomRef} className="mt-10"></div>
             </div>
         </GuestLayout>
     );
