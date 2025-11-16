@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const AboutSection = React.forwardRef((props) => {
+const AboutSection = React.forwardRef((props, ref) => {
     const sectionRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -9,173 +9,317 @@ const AboutSection = React.forwardRef((props) => {
     });
 
     const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
+    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                duration: 0.8
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 50, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                duration: 0.8,
+                ease: "easeOut"
+            }
+        }
+    };
+
+    const floatingAnimation = {
+        animate: {
+            y: [0, -15, 0],
+            transition: {
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        }
+    };
 
     return (
-        <section className="min-h-screen bg-gradient-to-b from-lime-900 via-lime-800 to-lime-700 flex items-center justify-center relative overflow-hidden">
-            <motion.img
-                src="/images/forest.png"
-                className="absolute inset-0 w-full h-full object-cover"
+        <section
+            ref={sectionRef}
+            className="min-h-screen bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-900 flex items-center justify-center relative overflow-hidden"
+        >
+            {/* Background dengan Parallax */}
+            <motion.div
+                className="absolute inset-0 w-full h-full"
                 style={{ scale: backgroundScale }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/80 z-0" />
+            >
+                <img
+                    src="/images/forest.png"
+                    className="w-full h-full object-cover"
+                    alt="Hutan Gambut"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/60 via-emerald-800/40 to-emerald-900/80" />
+            </motion.div>
 
-            <div className="relative z-10 px-4 md:px-12 py-16 text-white max-w-6xl w-full space-y-10">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex-1 text-left space-y-4">
-                        <motion.h2
-                            className="text-4xl md:text-5xl font-extrabold"
-                            initial={{ opacity: 0, y: -30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            Halo teman-teman! 👋
-                        </motion.h2>
+            {/* Floating Elements */}
+            <div className="absolute inset-0 overflow-hidden">
+                <motion.div
+                    className="absolute top-20 left-10 w-6 h-6 bg-amber-300/30 rounded-full"
+                    animate={{
+                        y: [0, -20, 0],
+                        opacity: [0.4, 0.8, 0.4],
+                    }}
+                    transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+                <motion.div
+                    className="absolute bottom-40 right-20 w-8 h-8 bg-green-400/20 rounded-full"
+                    animate={{
+                        y: [0, 15, 0],
+                        opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1
+                    }}
+                />
+            </div>
 
-                        <motion.p
-                            className="text-xl md:text-2xl"
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1.5, delay: 0.5 }}
-                        >
-                            Aku{" "}
-                            <span className="font-bold text-lime-300">
-                                Gambi
-                            </span>{" "}
-                            🌿, sahabatmu dari
-                            <span className="underline decoration-lime-400">
-                                {" "}
-                                lahan gambut
-                            </span>
-                            !
-                        </motion.p>
+            {/* Main Content */}
+            <div className="relative z-10 px-6 md:px-12 py-16 text-white max-w-7xl w-full">
+                <motion.div
+                    className="grid lg:grid-cols-2 gap-12 items-center"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                >
+                    {/* Text Content */}
+                    <motion.div className="space-y-8" variants={itemVariants}>
+                        <div className="space-y-6">
+                            <motion.div
+                                className="inline-flex items-center gap-3 bg-emerald-800/50 backdrop-blur-sm px-4 py-2 rounded-full border border-emerald-400/30"
+                                variants={itemVariants}
+                            >
+                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <span className="text-sm font-semibold text-green-200">Selamat Datang!</span>
+                            </motion.div>
 
-                        <motion.p
-                            className="text-lg md:text-xl"
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1.5, delay: 1 }}
-                        >
-                            Yuk, ikut aku{" "}
-                            <span className="font-semibold">menjelajahi</span>{" "}
-                            keajaiban
-                            <span className="italic">
-                                {" "}
-                                ekosistem gambut
-                            </span>{" "}
-                            dan belajar bagaimana kita bisa menjaga bumi
-                            bersama! 🌎
-                        </motion.p>
+                            <motion.h2
+                                className="text-5xl md:text-6xl font-bold leading-tight"
+                                variants={itemVariants}
+                            >
+                                Halo teman-teman!{" "}
+                                <motion.span
+                                    className="inline-block"
+                                    animate={{ rotate: [0, 10, -10, 0] }}
+                                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                                >
+                                    👋
+                                </motion.span>
+                            </motion.h2>
 
-                        <div className="flex flex-col md:flex-row gap-4 mt-4">
+                            <motion.div className="space-y-4 text-lg md:text-xl leading-relaxed" variants={itemVariants}>
+                                <p>
+                                    Aku{" "}
+                                    <span className="font-bold text-amber-300 text-2xl">
+                                        Gambi
+                                    </span>{" "}
+                                    <span className="text-2xl">🌿</span>, sahabatmu dari
+                                    <span className="font-semibold text-green-300">
+                                        {" "}
+                                        lahan gambut
+                                    </span>
+                                    !
+                                </p>
+
+                                <p className="text-emerald-100">
+                                    Yuk, ikut aku{" "}
+                                    <span className="font-semibold text-amber-200">menjelajahi</span>{" "}
+                                    keajaiban
+                                    <span className="italic text-green-200">
+                                        {" "}
+                                        ekosistem gambut
+                                    </span>{" "}
+                                    dan belajar bagaimana kita bisa menjaga bumi
+                                    bersama! <span className="text-xl">🌎</span>
+                                </p>
+                            </motion.div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <motion.div className="flex flex-col sm:flex-row gap-4" variants={itemVariants}>
                             <motion.button
-                                className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-6 py-3 rounded-full shadow-lg transition hover:scale-105"
-                                whileHover={{ scale: 1.05 }}
+                                className="group relative bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 text-white font-semibold px-8 py-4 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden"
+                                whileHover={{
+                                    scale: 1.05,
+                                    y: -2
+                                }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => {
-                                    document
-                                        .getElementById("next-section")
-                                        ?.scrollIntoView({
-                                            behavior: "smooth",
-                                        });
+                                    document.getElementById("next-section")?.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
                                 }}
                             >
-                                Lanjutkan Petualangan 🌳
+                                <span className="relative z-10 flex items-center gap-2">
+                                    Lanjutkan Petualangan
+                                    <motion.span
+                                        animate={{ x: [0, 5, 0] }}
+                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                    >
+                                        🌳
+                                    </motion.span>
+                                </span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </motion.button>
 
                             <motion.button
-                                className="bg-white text-lime-700 font-semibold px-6 py-3 rounded-full shadow-lg transition hover:scale-105 border border-lime-300"
-                                whileHover={{ scale: 1.05 }}
+                                className="group bg-white/10 hover:bg-white/20 backdrop-blur-sm border-2 border-amber-300/50 text-amber-100 font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-300"
+                                whileHover={{
+                                    scale: 1.05,
+                                    borderColor: "#fbbf24"
+                                }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() =>
-                                    alert("Segera hadir: Temui Gambi! 🎉")
-                                }
+                                onClick={() => alert("Segera hadir: Temui Gambi! 🎉")}
                             >
-                                Koleksi Gambi! 🐸
+                                <span className="flex items-center gap-2">
+                                    Koleksi Gambi!
+                                    <motion.span
+                                        animate={{ scale: [1, 1.2, 1] }}
+                                        transition={{ duration: 2, repeat: Infinity }}
+                                    >
+                                        🐸
+                                    </motion.span>
+                                </span>
                             </motion.button>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
-                    <motion.img
-                        src="/images/gambi.png"
-                        alt="Rumah Pohon"
-                        className="flex-1 max-w-xs md:max-w-md lg:max-w-sm object-contain hover:scale-105 transition-transform duration-300"
-                        initial={{ opacity: 0, x: 100 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 1.5, delay: 1 }}
-                    />
-                </div>
+                    {/* Character Image */}
+                    <motion.div
+                        className="flex justify-center"
+                        variants={itemVariants}
+                    >
+                        <motion.div
+                            className="relative"
+                            variants={floatingAnimation}
+                            animate="animate"
+                        >
+                            <motion.img
+                                src="/images/gambi.png"
+                                alt="Gambi Karakter"
+                                className="w-80 h-80 md:w-96 md:h-96 object-contain drop-shadow-2xl"
+                                whileHover={{
+                                    scale: 1.05,
+                                    rotate: 2
+                                }}
+                                transition={{ duration: 0.3 }}
+                            />
+                            {/* Decorative elements around character */}
+                            <motion.div
+                                className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400/20 rounded-full blur-sm"
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 3, repeat: Infinity }}
+                            />
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
 
-                {/* Fakta Menarik */}
+                {/* Facts Section */}
                 <motion.section
-                    className="bg-lime-700/40 backdrop-blur-md p-8 rounded-2xl border border-lime-300 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
+                    className="mt-20 bg-gradient-to-br from-emerald-800/60 to-emerald-900/60 backdrop-blur-lg p-8 md:p-12 rounded-3xl border border-emerald-400/30 shadow-2xl"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    viewport={{ once: true }}
                 >
-                    {/* Teks Fakta */}
-                    <div className="flex-1 space-y-4">
-                        <p className="text-sm uppercase tracking-wider text-white font-semibold">
-                            Fakta Ekosistem
-                        </p>
-                        <h3 className="text-3xl font-bold text-white">
-                            Tahukah kamu? 🤔
-                        </h3>
-                        <ul className="list-disc pl-6 space-y-3 text-lg text-white">
-                            <li>
-                                🌱 <strong>Lahan gambut</strong> menyimpan{" "}
-                                <span className="font-semibold">
-                                    10x lebih banyak karbon
-                                </span>{" "}
-                                dibanding hutan biasa!
-                            </li>
-                            <li>
-                                🔥 Saat terbakar, gambut bisa{" "}
-                                <span className="font-semibold">
-                                    menyumbang emisi besar
-                                </span>{" "}
-                                ke atmosfer.
-                            </li>
-                            <li>
-                                💧 Gambut berfungsi seperti spons:{" "}
-                                <span className="font-semibold">
-                                    menyerap air
-                                </span>{" "}
-                                dan{" "}
-                                <span className="font-semibold">
-                                    mencegah banjir
-                                </span>{" "}
-                                saat musim hujan.
-                            </li>
-                            <li>
-                                📍 Di <strong>Siak</strong>,{" "}
-                                <span className="font-semibold">
-                                    57% wilayahnya
-                                </span>{" "}
-                                adalah lahan gambut! 😲
-                            </li>
-                        </ul>
-                    </div>
+                    <div className="grid lg:grid-cols-2 gap-8 items-center">
+                        {/* Facts Content */}
+                        <div className="space-y-6">
+                            <div className="space-y-3">
+                                <div className="inline-flex items-center gap-2 bg-amber-500/20 px-4 py-2 rounded-full">
+                                    <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
+                                    <span className="text-sm font-semibold text-amber-200 uppercase tracking-wide">
+                                        Fakta Menarik
+                                    </span>
+                                </div>
+                                <h3 className="text-3xl md:text-4xl font-bold text-white">
+                                    Tahukah kamu?{" "}
+                                    <motion.span
+                                        animate={{ rotate: [0, 10, -10, 0] }}
+                                        transition={{ duration: 2, repeat: Infinity }}
+                                    >
+                                        🤔
+                                    </motion.span>
+                                </h3>
+                            </div>
 
-                    {/* Gambar */}
-                    <div className="flex-shrink-0">
-                        <img
-                            src="/images/lahan-gambut.png"
-                            alt="Lahan Gambut"
-                            className="w-80 h-80 md:w-96 md:h-96 rounded-xl object-cover border-4 border-white shadow-md"
-                        />
+                            <ul className="space-y-4">
+                                {[
+                                    "🌱 Lahan gambut menyimpan 10x lebih banyak karbon dibanding hutan biasa!",
+                                    "🔥 Saat terbakar, gambut bisa menyumbang emisi besar ke atmosfer.",
+                                    "💧 Gambut berfungsi seperti spons: menyerap air dan mencegah banjir.",
+                                    "📍 Di Siak, 57% wilayahnya adalah lahan gambut! 😲"
+                                ].map((fact, index) => (
+                                    <motion.li
+                                        key={index}
+                                        className="flex items-start gap-3 text-lg text-emerald-50"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.6, delay: index * 0.2 }}
+                                        viewport={{ once: true }}
+                                    >
+                                        <span className="text-2xl flex-shrink-0">•</span>
+                                        <span>{fact}</span>
+                                    </motion.li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Fact Image */}
+                        <motion.div
+                            className="flex justify-center"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="relative">
+                                <motion.img
+                                    src="/images/lahan-gambut.png"
+                                    alt="Lahan Gambut"
+                                    className="w-full max-w-md rounded-2xl object-cover shadow-2xl border-4 border-white/20"
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ duration: 0.3 }}
+                                />
+                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-emerald-900/40 to-transparent" />
+                            </div>
+                        </motion.div>
                     </div>
                 </motion.section>
 
-                {/* Ajakan & Button */}
-                <motion.p
-                    className="text-sm text-lime-100 italic mt-6"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1.5, delay: 2 }}
+                {/* Call to Action */}
+                <motion.div
+                    className="text-center mt-12"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1 }}
+                    viewport={{ once: true }}
                 >
-                    Bersama kita bisa menjaga gambut untuk masa depan! 🌱💧 Yuk
-                    lanjutkan!
-                </motion.p>
+                    <p className="text-lg md:text-xl text-emerald-100 font-medium">
+                        Bersama kita bisa menjaga gambut untuk masa depan!{" "}
+                        <span className="text-amber-300">🌱💧</span> Yuk lanjutkan!
+                    </p>
+                </motion.div>
             </div>
         </section>
     );

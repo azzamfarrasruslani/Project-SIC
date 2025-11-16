@@ -7,7 +7,7 @@ import PeatJourneySection from "@/Components/Guest/Tentang/PeatJourneySection";
 
 const FungsiGambut = () => {
     const bottomRef = useRef(null);
-  const peatJourneyRef = useRef(null); // khusus untuk PeatJourneySection
+    const peatJourneyRef = useRef(null); // khusus untuk PeatJourneySection
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -24,14 +24,10 @@ const FungsiGambut = () => {
 
                 <ScrollButtons onTop={scrollToTop} onBottom={scrollToBottom} />
 
-                <div ref={bottomRef} className="mt-10">
-
-
-                <PeatFunctionsSection ref={bottomRef} />
-                 <PeatJourneySection ref={peatJourneyRef} />
+                <div ref={bottomRef}>
+                    <PeatFunctionsSection ref={bottomRef} />
+                    <PeatJourneySection ref={peatJourneyRef} />
                 </div>
-
-
             </div>
         </GuestLayout>
     );

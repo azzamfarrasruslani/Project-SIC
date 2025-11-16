@@ -22,12 +22,7 @@ const Index = () => {
         <GuestLayout>
             <div className="mt-0">
                 <Head title="Produk Gambut" />
-                <Carousel />
-                <ScrollButtons onTop={scrollToTop} onBottom={scrollToBottom} />
-
-                <div ref={bottomRef} className="mt-10"></div>
-
-                {/* Kirim data produk ke ProdukCard */}
+                <div ref={bottomRef}></div>
                 <ProdukCard produks={produk} />
             </div>
         </GuestLayout>
